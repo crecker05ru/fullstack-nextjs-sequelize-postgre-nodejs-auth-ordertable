@@ -9,6 +9,7 @@ export const fetchOrderList = () => {
             dispatch({type: OrderListActionTypes.FETCH_ORDERLIST})
             const response = await axios.get("http://localhost:3001/api/orderList")
             dispatch({type: OrderListActionTypes.FETCH_ORDERLIST_SUCCESS,payload: response.data})
+            // console.log("response.data in orderListReducer",response.data)
         }catch(e){
             dispatch({type: OrderListActionTypes.FETCH_ORDERLIST_ERROR,payload: "Error"})
         }

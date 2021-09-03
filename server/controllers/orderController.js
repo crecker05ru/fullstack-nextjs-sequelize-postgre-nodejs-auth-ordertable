@@ -21,11 +21,21 @@ class OrderController {
         order.count - 1
         Order.save()
     }
+    async edit(req,res){
+        const {id,position,name,link,price,count,total} = req.body
+        const order = await Order.findOne({where:{id}})
+        order.name = name
+        order.link = link
+        order.price = price
+        order.count = count
+        await order.save()
+    }
     async delete(req,res){
-        const {position,name,link,price,count,total} = req.body
-        order = await Order.findOne({where:{name}})
+        const {id,position,name,link,price,count,total} = req.body
+        const order = await Order.findOne({where:{id}})
         if(!order){"Заказа нет в корзине"}
-        Order.destroy({where:{name}})
+        // Order.destroy({where:{id}})
+        await order.destroy()
         
     }
     async getAll(req,res){
@@ -34,11 +44,11 @@ class OrderController {
     }
     async getById (req, res) {
         const {id} = req.params 
-        const orders = await Order.findOne({
+        const orders = await Order.findAll({
             where:{orderListId:id},
             include: [{
-                model: Order,
-                as: "order"
+                model: OrderList,
+                as: "orderList"
             }
             ]
         })

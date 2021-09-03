@@ -19,7 +19,8 @@ class OrderListController {
 
     async getById (req, res) {
         const {id} = req.params
-        const orderList = await OrderList.findOne({where:{userId: id},
+        const orderList = await OrderList.findOne({
+            where:{userId: id},
         include:[ {
             model: Order,
             as: "orders"

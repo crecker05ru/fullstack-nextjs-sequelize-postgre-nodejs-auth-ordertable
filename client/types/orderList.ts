@@ -4,9 +4,9 @@ export interface OrderListState {
     error: null | string;
 }
 export enum OrderListActionTypes {
-    FETCH_ORDERLIST = 'FETCH_ORDER',
-    FETCH_ORDERLIST_SUCCESS = 'FETCH_ORDER_SUCCESS',
-    FETCH_ORDERLIST_ERROR = 'FETCH_ORDER_FETCH_ORDER_ERROR',
+    FETCH_ORDERLIST = 'FETCH_ORDERLIST',
+    FETCH_ORDERLIST_SUCCESS = 'FETCH_ORDERLIST_SUCCESS',
+    FETCH_ORDERLIST_ERROR = 'FETCH_ORDERLIST_ERROR',
 }
 interface FetchOrderListAction {
     type: OrderListActionTypes.FETCH_ORDERLIST;

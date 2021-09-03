@@ -6,15 +6,20 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 export default function LogIn () {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
-    const {loginUser,logoutUser,authUser} = useActions()
+    const {loginUser,logoutUser,authUser,fetchAuthData} = useActions()
     const {isAuth,user} = useTypedSelector(state => state.user)
+
     console.log('isAuth,user',isAuth,user)
+
     const logIn = async () => {
         loginUser(email,password)
     }
     const logOut = async () => {
         logoutUser()
     }
+    useEffect(()=>{
+        fetchAuthData()
+    },[])
     useEffect( () =>{
         authUser()
     },[])

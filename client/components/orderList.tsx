@@ -11,17 +11,18 @@ import AddOrder from './addOrder';
 
 
 
-export default function OrderList ({id}){
-    const {orderList,error,loading} = useTypedSelector(state => state.orderList)
-    const [users,setUsers] = useState([])
-    const [orders,setOrders] = useState([])
-    const {fetchOrderList,fetchOrderListById} = useActions()
+export default function OrderList ({id,orderList,order,currency}){
+    // const [users,setUsers] = useState([])
+    // const [orders,setOrders] = useState([])
+    // const {fetchOrderList,fetchOrderListById,fetchOrderById} = useActions()
+    const list = orderList[0]
+    console.log('orderList',orderList)
+    // console.log('orders',orders)
+    console.log('orderList.idt',list.id)
+    console.log('orderList[0]',orderList[0])
+    console.log("list",list)
+    console.log("order in orderList",order)
 
-    console.log('order',orderList)
-    
-    useEffect(()=> {
-     fetchOrderListById(id)
-    },[])
     
 //      async  function loadUsers () {
 //         const response =  await fetch("https://jsonplaceholder.typicode.com/users")
@@ -45,7 +46,7 @@ export default function OrderList ({id}){
         
     //     load()
     // },[])
-    if(loading){
+    if(orderList.loading){
         return <h2>Loading</h2>
     }
     if(!orderList){
@@ -54,12 +55,11 @@ export default function OrderList ({id}){
     return (
     <div>
        Лист Пользователя {id}   
-        ИД Листа {orderList.id}
-            
-    
-    <Order id={id}/>
-    
-    <label>ИД {id}</label>
+        ИД Листа {orderList.id}      
+        <div>
+            <Order listId={list.id} order={order.filter(o => o.orderListId == list.id)} currency={currency}/> 
+        </div>
+
     </div>
     )
 }

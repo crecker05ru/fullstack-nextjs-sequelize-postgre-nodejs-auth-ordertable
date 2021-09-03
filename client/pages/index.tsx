@@ -8,9 +8,10 @@ import RegistrationCard from '../components/registrationCard'
 import LogIn from '../components/logIn'
 import { Provider } from 'react-redux'
 import {store} from "../store/"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
-  console.log('process.env.HOSTNAME',process.env.HOSTNAME)
+  console.log('NEXT_PUBLIC_ENV_VARIABLE',process.env.NEXT_PUBLIC_ENV_VARIABLE)
   return (
     <div className={styles.container}>
       <Head>

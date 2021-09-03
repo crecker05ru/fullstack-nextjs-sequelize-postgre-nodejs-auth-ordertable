@@ -26,9 +26,10 @@ export const registerUser = (email,name,password) => {
             // console.log('isAuth',isAuth)
             // dispatch({type: UserActionTypes.REGISTER,payload: isAuth})
             // dispatch(fetchUser())
-            const {data} = await $host.post('api/user/registration', {email, password})
+            const {data} = await $host.post('api/user/registration', {email,name ,password})
             localStorage.setItem('token', data.token)
             let isAuth = !!data.token
+            console.log("registration user action",data)
             dispatch({type: UserActionTypes.REGISTER,payload: isAuth})
             dispatch(fetchUser())
             return jwt_decode(data.token)
@@ -47,6 +48,7 @@ export const loginUser = (email,password) => {
             localStorage.setItem('token', data.token)
             let isAuth = !!data.token
             console.log('isAuth',isAuth)
+            console.log("login user action",data)
             dispatch({type: UserActionTypes.LOGIN, payload: isAuth})
             return jwt_decode(data.token)
             

@@ -1,11 +1,13 @@
 import axios from "axios";
 
+//process.env.NEXT_PUBLIC_ENV_VARIABLE
+
 const $host = axios.create({
-    baseURL: `http://localhost:3001/`
+    baseURL: process.env.NEXT_PUBLIC_ENV_VARIABLE
 })
 
 const $authHost = axios.create({
-    baseURL: `http://localhost:3001/`
+    baseURL: process.env.NEXT_PUBLIC_ENV_VARIABLE
 })
 
 const authInterceptor = config => {
