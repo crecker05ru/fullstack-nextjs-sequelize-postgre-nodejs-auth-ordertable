@@ -50,7 +50,9 @@ export const deleteOrder = (id) => async (dispatch) => {
 export const editOrder = (id,position,name,link,price,count,total) => async(dispatch) => {
     try{
         const response = await axios.put("http://localhost:3001/api/order/edit",{id,position,name,link,price,count,total})
-        dispatch(fetchOrder())
+        dispatch({type: OrderActionTypes.FETCH_ORDER_SUCCESS,payload: response.data})
+
+        
     }catch(e){
         console.log(e)
     }

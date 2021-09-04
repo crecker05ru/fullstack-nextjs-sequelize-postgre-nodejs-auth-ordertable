@@ -4,13 +4,15 @@ import { userReducer } from './userReducer';
 import {orderListReducer} from "./orderListReducer"
 import { usersReducer } from "./usersReducer";
 import { AuthDataReducer } from './authReducer';
+import { currencyReducer } from './currencyReducer';
 
 export const rootReducer = combineReducers({
     order: orderReducer,
     user: userReducer,
     orderList: orderListReducer,
     users: usersReducer,
-    authData: AuthDataReducer
+    authData: AuthDataReducer,
+    currency: currencyReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

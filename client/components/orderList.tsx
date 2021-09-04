@@ -55,7 +55,8 @@ export default function OrderList ({id,orderList,order,currency}){
     return (
     <div>
        Лист Пользователя {id}   
-        ИД Листа {orderList.id}      
+        ИД Листа {orderList.id}   
+        Итого корзины = {order.reduce((prev,current)=> {return prev + current.total},0)} &#8364; | Итого в &#8381; =     {currency*order.reduce((prev,current)=> {return prev + current.total},0)}
         <div>
             <Order listId={list.id} order={order.filter(o => o.orderListId == list.id)} currency={currency}/> 
         </div>

@@ -9,13 +9,11 @@ const UserCard: React.FC = () => {
     const {error,loading,users} = useTypedSelector(state => state.users)
     const {orderList} = useTypedSelector(state => state.orderList)
     const {order} = useTypedSelector(state => state.order)
-    const [currency,setCurrency] = useState(86)
-    const {fetchUsers,fetchOrderList,fetchOrder} = useActions()
+    const [editCurrency,setEditCurrency] = useState(86)
+    const {fetchUsers,fetchOrderList,fetchOrder,fetchCurrency} = useActions()
     console.log('users',users)
     console.log('orderList in userCard',orderList)
     console.log("order in userCard",order)
-    console.log()
-    
 
     useEffect(() => {
         fetchUsers()
@@ -28,6 +26,7 @@ const UserCard: React.FC = () => {
     useEffect(() => {
         fetchOrder()
     },[])
+
 
     // useEffect(()=>{
     //     fetchUser()
@@ -58,8 +57,8 @@ const UserCard: React.FC = () => {
         <>
             <div >
             <AddOrder/>
-            <div>Курс &#8364; = {currency} &#8381; </div>
-             Изменить курс <input style={{ width: '2rem' }} value={currency} onChange={e => setCurrency(Number(e.target.value) )}></input>
+            <div>Курс &#8364; = {editCurrency} &#8381; </div>
+             Изменить курс <input style={{ width: '2rem' }} value={editCurrency} onChange={e => setEditCurrency(Number(e.target.value) )}></input>
             <div className="usercard">
                     {users? users.map(u => <div key={u.id}>
                         <div className="card border-dark mb-3  users" style={{ width: '18rem' }}>{u.id} - {u.name}</div>
@@ -68,7 +67,7 @@ const UserCard: React.FC = () => {
                             <div key={u.id} >
                                 {console.log("o.userId",o.userId)}
                                
-                                <OrderList id={u.id} orderList={orderList.filter(o => o.userId == u.id)} order={order.filter(or => or.orderListId == o.id)} currency={currency}/>
+                                <OrderList id={u.id} orderList={orderList.filter(o => o.userId == u.id)} order={order.filter(or => or.orderListId == o.id)} currency={editCurrency}/>
                             </div>
                             )}
                         {/* <OrderList id={u.id} orderList={orderList.filter(o => o.userId == u.id)}/> */}

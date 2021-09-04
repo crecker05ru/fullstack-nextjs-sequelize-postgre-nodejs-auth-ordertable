@@ -28,6 +28,7 @@ class OrderController {
         order.link = link
         order.price = price
         order.count = count
+        order.total = total
         await order.save()
     }
     async delete(req,res){
