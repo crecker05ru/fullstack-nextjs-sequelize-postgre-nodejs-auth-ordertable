@@ -12,7 +12,8 @@ const Order = sequelize.define("order",{
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     position: {type: DataTypes.INTEGER},
     name: {type: DataTypes.STRING},
-    link: {type: DataTypes.STRING},
+    option: {type: DataTypes.STRING,defaultValue: "no"},
+    link: {type: DataTypes.STRING(777)},
     price: {type: DataTypes.INTEGER,defaultValue: 0},
     count: {type: DataTypes.INTEGER,defaultValue: 0},
     total: {type: DataTypes.INTEGER,defaultValue: 0}
@@ -21,7 +22,14 @@ const Order = sequelize.define("order",{
 })
 const OrderList = sequelize.define("orderList",{
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    total: {type: DataTypes.INTEGER,defaultValue: 0}
+    total: {type: DataTypes.INTEGER,defaultValue: 0},
+    shipping: {type: DataTypes.INTEGER,defaultValue: 0},
+    totalWithShipping: {type: DataTypes.INTEGER,defaultValue: 0},
+    payedTotal: {type: DataTypes.INTEGER,defaultValue: 0},
+    defference: {type: DataTypes.INTEGER,defaultValue: 0},
+    isClosed: {type: DataTypes.BOOLEAN,defaultValue: false}
+    
+
 })
 
 const UserProfile = sequelize.define("userProfile",{
@@ -60,6 +68,12 @@ Order.belongsTo(OrderList)
 // await User.sync({ force: true });
 //   await OrderList.sync({ force: true });
 // console.log("The table for the User model was just (re)created!");
+
+
+//  OrderList.sync({ force: true }).then(()=>{
+//     console.log("The table for the OrderList model was just (re)created!");
+//  }).catch(err=> console.log(err))
+
 
 module.exports = {
     User,

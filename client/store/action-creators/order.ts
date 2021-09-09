@@ -27,11 +27,12 @@ export const fetchOrderById = (id) => {
         }
     }
 }
-export const addOrder = (position,name,link,price,count,total,orderListId) => {
+export const addOrder = (position,name,option,link,price,count,total,userId) => {
     return async (dispatch) => {
         try{
-            const response = await axios.post("http://localhost:3001/api/order",{position,name,link,price,count,total,orderListId})
+            const response = await axios.post("http://localhost:3001/api/order",{position,name,option,link,price,count,total,userId})
             dispatch(fetchOrder())
+            // console.log("fetch add")
         }catch(e){
             console.log(e)
         }
@@ -47,12 +48,12 @@ export const deleteOrder = (id) => async (dispatch) => {
         }
 }
 
-export const editOrder = (id,position,name,link,price,count,total) => async(dispatch) => {
+export const editOrder = (id,position,name,option,link,price,count,total) => async(dispatch) => {
     try{
-        const response = await axios.put("http://localhost:3001/api/order/edit",{id,position,name,link,price,count,total})
-        dispatch({type: OrderActionTypes.FETCH_ORDER_SUCCESS,payload: response.data})
-
-        
+        const response = await axios.put("http://localhost:3001/api/order/edit",{id,position,name,option,link,price,count,total})
+        // dispatch({type: OrderActionTypes.FETCH_ORDER_SUCCESS,payload: response.data})
+        dispatch(fetchOrder())
+        console.log("fetch order")
     }catch(e){
         console.log(e)
     }

@@ -26,3 +26,21 @@ export const fetchOrderListById = (id) => {
         }
     }
 }
+
+export const editOrderList = (id,total,shipping,totalWithShipping,payedTotal,difference) => async (dispatch) => {
+    try{
+        const response = await axios.put("http://localhost:3001/api/orderList/edit",{id,total,shipping,totalWithShipping,payedTotal,difference})
+        dispatch(fetchOrderList())
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export const newOrderList  = (id) => async (dispatch) => {
+    try{
+        const response = await axios.post("http://localhost:3001/api/orderList/neworderlist",{id})
+        dispatch(fetchOrderList())
+    }catch(e){
+        console.log(e)
+    }
+}

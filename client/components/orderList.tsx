@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
-import {order} from "../interfaces/order"
-import {user} from "../interfaces/user"
 import { useEffect, useState } from "react"
-import Order from './order';
+import Orders from './orders';
 import {useDispatch,useSelector} from "react-redux";
 import { useTypedSelector } from './hooks/useTypedSelector';
 import { useActions } from './hooks/useActions';
@@ -15,14 +13,37 @@ export default function OrderList ({id,orderList,order,currency}){
     // const [users,setUsers] = useState([])
     // const [orders,setOrders] = useState([])
     // const {fetchOrderList,fetchOrderListById,fetchOrderById} = useActions()
-    const list = orderList[0]
+    const list = orderList[orderList.length - 1]
+    const listId = list.id
+    let [editTotal,setEditTotal] = useState(list.total)
+    let [editPayedTotal,setEditPayedTotal] = useState(list.payedTotal)
+    let [shipping,setShipping] = useState(list.shipping)
+    let [totalWithShipping,setTotalWithShipping] = useState(list.totalWithShipping)
+    const [editPayed,setEditPayed] = useState(false)
+    let [difference,setDifference] = useState(list.difference)
+    const {editOrderList,newOrderList} = useActions()
+ 
+    editTotal = order.reduce((prev,current)=> {return prev + current.total},0)
+
     console.log('orderList',orderList)
     // console.log('orders',orders)
     console.log('orderList.idt',list.id)
     console.log('orderList[0]',orderList[0])
     console.log("list",list)
     console.log("order in orderList",order)
+    console.log('listId,editTotal,editPayedTotal',listId,editTotal,editPayedTotal)
+    // id,total,shipping,totalWithShipping,payedTotal,difference
+    const handlTotalPayed = () => {
+        setEditPayed(!editPayed)
+    }
 
+    const updateOrderList = () => {
+        setEditPayed(!editPayed)
+        editOrderList(listId,editTotal,shipping,totalWithShipping,editPayedTotal,difference)
+    }
+    const newOrderListHandler = () => {
+        newOrderList(list.userId)
+    }
     
 //      async  function loadUsers () {
 //         const response =  await fetch("https://jsonplaceholder.typicode.com/users")
@@ -54,11 +75,19 @@ export default function OrderList ({id,orderList,order,currency}){
     }
     return (
     <div>
-       Лист Пользователя {id}   
-        ИД Листа {orderList.id}   
-        Итого корзины = {order.reduce((prev,current)=> {return prev + current.total},0)} &#8364; | Итого в &#8381; =     {currency*order.reduce((prev,current)=> {return prev + current.total},0)}
+        Итого корзины = {editTotal} &#8364; 
+        | Итого в &#8381; =     {currency*order.reduce((prev,current)=> {return prev + current.total},0)}
+        | Оплачено в &#8381;  - {editPayedTotal}
+        <button className="btn btn-info" onClick={newOrderListHandler}>Новый список</button>
+        {editPayed 
+        ? <><input value={editPayedTotal} onChange={e => setEditPayedTotal(e.target.value)}></input>
+        <button className="btn btn-info" onClick={updateOrderList}>Обновить</button> 
+        </>
+        : <button className="btn btn-info" onClick={handlTotalPayed}>Изменить</button> 
+        }
+         
         <div>
-            <Order listId={list.id} order={order.filter(o => o.orderListId == list.id)} currency={currency}/> 
+            <Orders listId={list.id} order={order.filter(o => o.orderListId == list.id)} currency={currency}/> 
         </div>
 
     </div>

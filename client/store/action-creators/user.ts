@@ -62,6 +62,7 @@ export const logoutUser = () => {
         try{
             const response = await axios.post("http://localhost:3001/api/user/logout")
             let isAuth = !!response.data.token
+            localStorage.removeItem('token')
             dispatch({type: UserActionTypes.LOGOUT, payload: isAuth})
         }catch (e){
             console.log(e)

@@ -1,5 +1,5 @@
 const { response } = require("express")
-const {OrderList,Order} = require("../models/models")
+const {OrderList,Order,User} = require("../models/models")
 
 class OrderListController {
     async placeOrder (req,res){
@@ -27,6 +27,33 @@ class OrderListController {
         }
         ]})
         return res.json(orderList)
+    }
+
+    async edit(req,res){
+        const {id,total,shipping,totalWithShipping,payedTotal,difference,isClosed} = req.body
+        const orderList = await OrderList.findOne({where:{id}})
+        orderList.total = total
+        orderList.shipping = shipping
+        orderList.totalWithShipping = totalWithShipping
+        orderList.payedTotal = payedTotal
+        orderList.difference = difference
+        orderList.closed = isClosed
+        await orderList.save()
+        // return res.json(orderList)
+    }
+
+    async newOrderList(req,res){
+        const {id} = req.body
+        const user = await User.findOne({where:{id}})
+        const lastOrderList = await OrderList.findOne({where:{userId:id},order:[['id','DESC']]})
+        lastOrderList.isClosed = true
+        // user.setOrderList(isClosed) = true
+        await lastOrderList.save()
+        const orderList = await OrderList.create({userId:user.id, userProfileId:user.id})
+        
+        // user.setOrderList(orderList)
+        return res.json(orderList)
+        // return res.status(200)
     }
 
 }

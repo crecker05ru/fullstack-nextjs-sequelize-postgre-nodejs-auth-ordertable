@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Order from '../components/order'
+import Order from '../components/orders'
 import styles from '../styles/Home.module.css'
 import OrderList from "../components/orderList"
 import UserCard from '../components/userCard'

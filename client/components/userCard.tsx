@@ -10,6 +10,7 @@ const UserCard: React.FC = () => {
     const {orderList} = useTypedSelector(state => state.orderList)
     const {order} = useTypedSelector(state => state.order)
     const [editCurrency,setEditCurrency] = useState(86)
+    const {isAuth,user} = useTypedSelector(state => state.user)
     const {fetchUsers,fetchOrderList,fetchOrder,fetchCurrency} = useActions()
     console.log('users',users)
     console.log('orderList in userCard',orderList)
@@ -56,15 +57,20 @@ const UserCard: React.FC = () => {
     return (
         <>
             <div >
-            <AddOrder/>
+                {isAuth
+                ? <AddOrder/> 
+                : <h3>Войдите в учетную запись чтобы добавлять и просматривать заказы</h3> }
+            
             <div>Курс &#8364; = {editCurrency} &#8381; </div>
              Изменить курс <input style={{ width: '2rem' }} value={editCurrency} onChange={e => setEditCurrency(Number(e.target.value) )}></input>
             <div className="usercard">
-                    {users? users.map(u => <div key={u.id}>
+                {isAuth
+                ? <>
+                {users? users.map(u => <div key={u.id}>
                         <div className="card border-dark mb-3  users" style={{ width: '18rem' }}>{u.id} - {u.name}</div>
                         {console.log("u.id",u.id)}
                         {orderList.filter(o=> o.userId == u.id).map(o => 
-                            <div key={u.id} >
+                            <div key={o.id} >
                                 {console.log("o.userId",o.userId)}
                                
                                 <OrderList id={u.id} orderList={orderList.filter(o => o.userId == u.id)} order={order.filter(or => or.orderListId == o.id)} currency={editCurrency}/>
@@ -73,6 +79,12 @@ const UserCard: React.FC = () => {
                         {/* <OrderList id={u.id} orderList={orderList.filter(o => o.userId == u.id)}/> */}
                         </div>
                         ) : "Список пользователей пуст"}
+                </>
+                : <>
+                
+                </> 
+                }
+                    
                         </div>
             </div>
         </>

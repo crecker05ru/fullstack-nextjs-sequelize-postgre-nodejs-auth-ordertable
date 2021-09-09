@@ -24,12 +24,12 @@ class UserController {
         const hashPassword = await bcrypt.hash(password, 7)
         const user = await User.create({email,role, password: hashPassword})
         const userProfile = await UserProfile.create({email,name,userId: user.id})
-        const orderList = await OrderList.create()
-        user.setOrderList(orderList)
+        const orderList = await OrderList.create({userId: user.id})
+        // user.setOrderList(orderList)
         userProfile.setOrderList(orderList)
         console.log('user',{...user})
         const token = generateJwt(user.id, user.email, user.role)
-        return res.json({token})
+        return res.json({token,orderList})
     }
     async login(req , res, next) {    
         const {email,password} = req.body

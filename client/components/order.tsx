@@ -1,67 +1,26 @@
-import axios from 'axios';
-import { useState ,useEffect} from 'react';
-import { useDispatch,useSelector } from 'react-redux';
-import { useActions } from './hooks/useActions';
-import { useTypedSelector } from './hooks/useTypedSelector';
-import AddOrder from './addOrder';
 import EditOrder from './editOrder';
+import { useState } from 'react';
 
-export default function Order ({listId,order,currency}) {
- 
+export default function Order  ({id,position,name,option,link,price,count,total,index,deleteOrd,currency}) {
+
     const [edit,setEdit] = useState(false)
-    const {deleteOrder,editOrder} = useActions()
-    console.log("order",order)
 
-    const deleteOrd = (id) => {
-        deleteOrder(id)
-    }
     const clickHandler = () => {
         setEdit(!edit)
     }
 
-    // const editOrd =(id,position,name,link,price,count,total) => {
-    //     editOrder(id,position,name,link,price,count,total)
-    // }
-    // useEffect(() => {
-    //     fetchOrder()
-    // },[id])
-
-    // const increment = () => {
-    //     setPosition(position + 1)
-    // }
-
-    // const addOrder = () => {
-    //     axios.post("http://localhost:3001/api/order",{position,name: itemName,price,link,total,orderListId: id})
-    // }
-    
-    // useEffect( () => {
-    //     dispatch(getOrder())
-    // },[])
-    // if(loading){
-    //     return <h2>Loading</h2>
-    // }
-    // if(!order){
-    //     return <h2>Нет заказов</h2>
-    // }
-    return(
+    return (
         <>
-        <div>
-            {order.length > 0 ? order.map( (o,index) => 
-                <div className="card " style={{ width: '70rem' }}  key={o.id}>
-                    {edit 
+                            {edit 
                     ? <div>
-                        <EditOrder id={o.id} position={o.position} name={o.name} link={o.link} price={o.price} count={o.count} total={o.total} clickHandler={clickHandler}/>
+                        <EditOrder id={id} position={position} name={name} option={option} link={link} price={price} count={count} total={total} clickHandler={clickHandler}/>
                         </div>
                     
-                    : <div className="list-group-item d-flex justify-content-between">Номер {index+1} - Наименование {o.name} | Ссылка {o.link} | Цена {o.price} | Количество {o.count} | Итого в &#8364; {o.total}  Итого в &#8381; {o.total*currency}<div>
+                    :           <div className="list-group-item d-flex justify-content-between">Номер - {index+1} Наименование - {name} | Опция - {option} | Ссылка - <a href={link}>{link}</a>  | Цена -  {price} &#8364;| Количество - {count} | Итого в &#8364; - {total}  Итого в &#8381; - {total*currency}<div>
                     <button className="btn btn-primary ms-2 text-center" onClick={clickHandler}>Изменить</button>
-                        <button className="btn btn-danger ms-2 text-center" onClick={() => deleteOrd(o.id)}>X</button></div></div>
+                        <button className="btn btn-danger ms-2 text-center" onClick={() => deleteOrd(id)}>X</button></div></div>
                 }
-                    
-                    
-                </div>
-            ) : "Нет заказов" }
-        </div>
+
         </>
     )
 }
