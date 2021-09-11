@@ -9,8 +9,8 @@ const Auth = () => {
     return (
         <>
         <h1>Auth</h1>
-                  <LogIn />
-          <RegistrationCard/>
+            <LogIn />
+          {/* <RegistrationCard/> */}
         </>
     );
 };

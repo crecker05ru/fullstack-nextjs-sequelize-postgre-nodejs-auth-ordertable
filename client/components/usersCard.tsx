@@ -5,6 +5,7 @@ import { useActions } from './hooks/useActions';
 import OrderList from './orderList';
 import AddOrder from './addOrder';
 import UserCard from './userCard';
+import Auth from '../pages/auth';
 
 const UsersCard: React.FC = () => {
     const {error,loading,users} = useTypedSelector(state => state.users)
@@ -12,7 +13,7 @@ const UsersCard: React.FC = () => {
     const {order} = useTypedSelector(state => state.order)
     const [editCurrency,setEditCurrency] = useState(86)
     const {isAuth,user} = useTypedSelector(state => state.user)
-    const {fetchUsers,fetchOrderList,fetchOrder,fetchCurrency} = useActions()
+    const {fetchUsers,fetchOrderList,fetchOrder,fetchCurrency,logoutUser} = useActions()
     console.log('users',users)
     console.log('orderList in userCard',orderList)
     console.log("order in userCard",order)
@@ -29,6 +30,9 @@ const UsersCard: React.FC = () => {
         fetchOrder()
     },[])
 
+    const logOut = async () => {
+        logoutUser()
+    }
 
     // useEffect(()=>{
     //     fetchUser()
@@ -49,9 +53,9 @@ const UsersCard: React.FC = () => {
     if(loading){
         return <h2>Loading</h2>
     }
-    if(error){
-        return <h2>{error}</h2>
-    }
+    // if(error){
+    //     return <h2>{error}</h2>
+    // }
     
 
     
@@ -60,8 +64,14 @@ const UsersCard: React.FC = () => {
             <div >
            
                 {isAuth
-                ? <AddOrder/> 
-                : <h3>Войдите в учетную запись чтобы добавлять и просматривать заказы</h3> }
+                ? <div>
+                    <button className="btn btn-warning" onClick={logOut}>Log out</button> 
+                    <AddOrder/> 
+                    
+                    </div>
+                : <div><h3>Войдите в учетную запись чтобы добавлять и просматривать заказы</h3> 
+                    <Auth/>
+                </div>}
             
             <div>Курс &#8364; = {editCurrency} &#8381; </div>
              Изменить курс <input style={{ width: '2rem' }} value={editCurrency} onChange={e => setEditCurrency(Number(e.target.value) )}></input>

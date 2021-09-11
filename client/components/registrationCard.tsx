@@ -35,7 +35,7 @@ export default function RegistrationCard () {
             <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}></input>
             <input placeholder="Name" value={name} onChange={e => setName(e.target.value)}></input>
             <input placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}></input>
-            <button onClick={register}>Register</button>
+            <button className="btn btn-primary" onClick={register}>Register</button>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import { Dispatch } from "redux";
 import {UserActionTypes,UserAction} from "../../types/user"
 import {$authHost, $host} from "../../http/index";
 import jwt_decode from "jwt-decode";
+import { responsePathAsArray } from 'graphql';
 
 export const fetchUser = () => {
     return async (dispatch: Dispatch<UserAction>) => {
@@ -53,6 +54,7 @@ export const loginUser = (email,password) => {
             return jwt_decode(data.token)
             
         }catch (e){
+            dispatch({type: UserActionTypes.FETCH_USER_ERROR,payload: "Неверный логин или пароль"})
             console.log(e)
         }
     }

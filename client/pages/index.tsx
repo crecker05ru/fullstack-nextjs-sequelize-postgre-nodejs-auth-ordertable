@@ -9,7 +9,6 @@ import LogIn from '../components/logIn'
 import { Provider } from 'react-redux'
 import {store} from "../store/"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Auth from './Auth'
 
 export default function Home() {
   console.log('NEXT_PUBLIC_ENV_VARIABLE',process.env.NEXT_PUBLIC_ENV_VARIABLE)
@@ -27,7 +26,6 @@ export default function Home() {
         </h1>
         
         <Provider store={store}>
-        <Auth />
             <UsersCard />
           </Provider>
       </main>

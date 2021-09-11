@@ -24,3 +24,7 @@ margin: 10px 0px 10px 100px;
   width: 200px;
   text-align: center;
 }
+
+span:hover{
+  cursor: pointer;
+}
