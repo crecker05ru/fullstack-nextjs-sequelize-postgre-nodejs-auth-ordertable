@@ -3,12 +3,13 @@ import Image from 'next/image'
 import Order from '../components/orders'
 import styles from '../styles/Home.module.css'
 import OrderList from "../components/orderList"
-import UserCard from '../components/userCard'
+import UsersCard from '../components/usersCard'
 import RegistrationCard from '../components/registrationCard'
 import LogIn from '../components/logIn'
 import { Provider } from 'react-redux'
 import {store} from "../store/"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Auth from './Auth'
 
 export default function Home() {
   console.log('NEXT_PUBLIC_ENV_VARIABLE',process.env.NEXT_PUBLIC_ENV_VARIABLE)
@@ -24,16 +25,15 @@ export default function Home() {
         <h1 className={styles.title}>
           Order Table
         </h1>
+        
         <Provider store={store}>
-          <LogIn />
-          <RegistrationCard/>
-            <UserCard />
+        <Auth />
+            <UsersCard />
           </Provider>
       </main>
 
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
