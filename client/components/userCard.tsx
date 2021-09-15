@@ -1,4 +1,4 @@
-
+import {BiUser} from "react-icons/bi"
 import OrderList from './orderList';
 
 const UserCard = ({user,orderList,currency,order}) => {
@@ -6,7 +6,7 @@ const UserCard = ({user,orderList,currency,order}) => {
         <>
             <div>
 
-                        <div className="card border-dark mb-3  users" style={{ width: '18rem' }}>{user.id} - {user.name}</div>
+                        <div className="card border-dark  mt-3  users" style={{ width: '18rem' }}><BiUser/>{user.id} | {user.name}</div>
                         {console.log("u.id",user.id)}
                         {orderList.filter(o=> o.userId == user.id).map(o => 
                             <div key={o.id} >

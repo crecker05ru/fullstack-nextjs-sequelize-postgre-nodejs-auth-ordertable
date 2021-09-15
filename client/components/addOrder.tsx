@@ -29,7 +29,7 @@ export default function AddOrder () {
     
     return (
         <>
-        <div>
+        <div className="mt-3">
         <label >Добавить заказ </label>
             <input placeholder="Название" value={name} onChange={e => setName(e.target.value)}></input>
             <input placeholder="Опция" value={option} onChange={e => setOption(e.target.value)}></input>

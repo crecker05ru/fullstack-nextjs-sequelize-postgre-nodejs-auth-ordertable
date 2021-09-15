@@ -13,6 +13,8 @@ export default function OrderList ({id,orderList,order,currency}){
     // const [users,setUsers] = useState([])
     // const [orders,setOrders] = useState([])
     // const {fetchOrderList,fetchOrderListById,fetchOrderById} = useActions()
+    const {authData} = useTypedSelector(state => state.authData)
+    const currentUserId = authData.id
     const list = orderList[orderList.length - 1]
     const listId = list.id
     let [editTotal,setEditTotal] = useState(list.total)
@@ -76,18 +78,23 @@ export default function OrderList ({id,orderList,order,currency}){
     return (
     <div>
         Итого корзины = {editTotal} &#8364; 
-        | Итого в &#8381; =     {currency*order.reduce((prev,current)=> {return prev + current.total},0)}
+        | Итого в &#8381; =     {currency*order.reduce((prev,current)=> {return prev + current.total},0).toFixed(2)}
         | Оплачено в &#8381;  - {editPayedTotal}
+      <div className="mt-1">
+        {id == currentUserId 
+        ?<>
         <button className="btn btn-info" onClick={newOrderListHandler}>Новый список</button>
         {editPayed 
         ? <><input value={editPayedTotal} onChange={e => setEditPayedTotal(e.target.value)}></input>
         <button className="btn btn-info" onClick={updateOrderList}>Обновить</button> 
         </>
         : <button className="btn btn-info" onClick={handlTotalPayed}>Изменить</button> 
-        }
-         
+        } </>
+        : <></>
+            }
+         </div>
         <div>
-            <Orders listId={list.id} order={order.filter(o => o.orderListId == list.id)} currency={currency}/> 
+            <Orders listId={list.id} userId={list.userId} order={order.filter(o => o.orderListId == list.id)} currency={currency}  currentUserId ={currentUserId }/> 
         </div>
 
     </div>

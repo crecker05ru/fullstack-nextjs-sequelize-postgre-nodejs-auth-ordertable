@@ -14,19 +14,19 @@ const Order = sequelize.define("order",{
     name: {type: DataTypes.STRING},
     option: {type: DataTypes.STRING,defaultValue: "no"},
     link: {type: DataTypes.STRING(777)},
-    price: {type: DataTypes.INTEGER,defaultValue: 0},
+    price: {type: DataTypes.FLOAT,defaultValue: 0},
     count: {type: DataTypes.INTEGER,defaultValue: 0},
-    total: {type: DataTypes.INTEGER,defaultValue: 0}
+    total: {type: DataTypes.FLOAT,defaultValue: 0}
 
 
 })
 const OrderList = sequelize.define("orderList",{
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    total: {type: DataTypes.INTEGER,defaultValue: 0},
-    shipping: {type: DataTypes.INTEGER,defaultValue: 0},
+    total: {type: DataTypes.FLOAT,defaultValue: 0},
+    shipping: {type: DataTypes.FLOAT,defaultValue: 0},
     totalWithShipping: {type: DataTypes.INTEGER,defaultValue: 0},
-    payedTotal: {type: DataTypes.INTEGER,defaultValue: 0},
-    defference: {type: DataTypes.INTEGER,defaultValue: 0},
+    payedTotal: {type: DataTypes.FLOAT,defaultValue: 0},
+    defference: {type: DataTypes.FLOAT,defaultValue: 0},
     isClosed: {type: DataTypes.BOOLEAN,defaultValue: false}
     
 

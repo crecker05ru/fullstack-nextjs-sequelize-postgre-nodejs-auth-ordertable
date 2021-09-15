@@ -13,6 +13,7 @@ const UsersCard: React.FC = () => {
     const {order} = useTypedSelector(state => state.order)
     const [editCurrency,setEditCurrency] = useState(86)
     const {isAuth,user} = useTypedSelector(state => state.user)
+    const {authData} = useTypedSelector(state => state.authData)
     const {fetchUsers,fetchOrderList,fetchOrder,fetchCurrency,logoutUser} = useActions()
     console.log('users',users)
     console.log('orderList in userCard',orderList)
@@ -33,6 +34,17 @@ const UsersCard: React.FC = () => {
     const logOut = async () => {
         logoutUser()
     }
+
+    // if(authData.role == "USER"){
+    //     return (
+    //         <>
+    //         <h1>Role USER</h1>
+    //         <button className="btn btn-warning" onClick={logOut}>Log out</button> 
+    //         <AddOrder/> 
+    //         <UserCard user={authData}  orderList={orderList} currency={editCurrency} order={order}/>
+    //         </>
+    //     )
+    // }
 
     // useEffect(()=>{
     //     fetchUser()
@@ -65,16 +77,20 @@ const UsersCard: React.FC = () => {
            
                 {isAuth
                 ? <div>
-                    <button className="btn btn-warning" onClick={logOut}>Log out</button> 
-                    <AddOrder/> 
                     
+                    <AddOrder/> 
+                    <button className="btn btn-warning" onClick={logOut}>Log out</button> 
                     </div>
                 : <div><h3>Войдите в учетную запись чтобы добавлять и просматривать заказы</h3> 
                     <Auth/>
                 </div>}
             
-            <div>Курс &#8364; = {editCurrency} &#8381; </div>
+            {isAuth 
+            ? <><div>Курс &#8364; = {editCurrency} &#8381; </div>
              Изменить курс <input style={{ width: '2rem' }} value={editCurrency} onChange={e => setEditCurrency(Number(e.target.value) )}></input>
+             </> 
+             :<></> }
+
             <div className="usercard">
                 {isAuth
                 ? <>

@@ -7,8 +7,8 @@ import AddOrder from './addOrder';
 import Order from './order'
 import EditOrder from './editOrder';
 
-export default function Orders ({listId,order,currency}) {
- 
+export default function Orders ({listId,order,currency,currentUserId,userId}) {
+    
     const [edit,setEdit] = useState(false)
     const {deleteOrder,editOrder} = useActions()
     console.log("order",order)
@@ -49,7 +49,7 @@ export default function Orders ({listId,order,currency}) {
         <div>
             {order.length > 0 ? order.map( (o,index) => 
                 <div className="card " style={{ width: '70rem' }}  key={o.id}>
-                    <Order id={o.id} position={o.position} name={o.name} option={o.option} link={o.link} price={o.price} count={o.count} total={o.total} index={index} currency={currency} deleteOrd={deleteOrd}/>
+                    <Order id={o.id} position={o.position} name={o.name} option={o.option} link={o.link} price={o.price} count={o.count} total={o.total} index={index} currency={currency} deleteOrd={deleteOrd} userId={userId}  currentUserId={currentUserId}/>
                 
                     
                     
