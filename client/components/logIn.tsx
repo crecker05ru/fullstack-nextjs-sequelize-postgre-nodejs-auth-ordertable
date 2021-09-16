@@ -7,11 +7,13 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import {NavLink, useLocation, useHistory} from "react-router-dom";
+import { useRouter } from 'next/router'
 
 export default function LogIn () {
+    const router = useRouter()
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
-    const [name, setName] = useState('Имя')
+    const [name, setName] = useState('')
     
     const [emailIsBlur,setEmailIsBlur] = useState(false)
     const [passwordIsBlur,setPasswordIsBlur] = useState(false)
@@ -30,12 +32,16 @@ export default function LogIn () {
     console.log('isAuth,user',isAuth,user)
 
     useEffect(()=> {
-        if(emailError || passwordError){
+        if(emailError || passwordError||(!loginPage&&nameError)){
             setFormValid(false)
         }else{
             setFormValid(true)
         }
     },[emailError, passwordError,nameError])
+
+    // useEffect(()=>{
+    //     router.reload()
+    // },[])
 
     const blurHandler = (e) => {
         switch(e.target.name){
@@ -101,8 +107,10 @@ export default function LogIn () {
         try{
             if (loginPage) {
                 loginUser(email,password)
+
             } else {
                 registerUser(email,name,password)
+
             }
         }catch(e){
             console.log(e)
@@ -110,7 +118,9 @@ export default function LogIn () {
 
     }
 
-
+    if(isAuth){
+        router.push("/")
+    }
     // const logIn =  async () => {
     //     try{
     //         const response = await fetch("http://localhost:3001/api/user/registration",{
@@ -137,7 +147,7 @@ export default function LogIn () {
             <button onClick={logIn} className="btn btn-success">Log in</button></>} */}
             <Container
             className="d-flex justify-content-center align-items-center"
-            style={{height: window.innerHeight - 54}}
+            // style={{height: window.innerHeight - 54}}
         >
             <Card style={{width: 600}} className="p-5">
                 <h2 className="m-auto">{loginPage ? 'Авторизация' : "Регистрация"}</h2>
@@ -179,7 +189,8 @@ export default function LogIn () {
                         type="password" /> */}
                     {loginPage 
                     ? <></>
-                : <Form.Control
+                : <> {(nameIsBlur && nameError) && <div className="text-danger">{nameError}</div>}
+                <Form.Control
                 className="mt-3"
                 placeholder="Введите имя"
                 value={name}
@@ -187,7 +198,7 @@ export default function LogIn () {
                 onChange={e => nameHandler(e)} 
                 onBlur={e => blurHandler(e)}
                 /> 
-                
+                </>
                  }
                     <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
                         {loginPage ?

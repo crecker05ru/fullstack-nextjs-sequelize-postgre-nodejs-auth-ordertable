@@ -14,7 +14,7 @@ export default function Order  ({id,position,name,option,link,price,count,total,
         <>
                             {edit 
                     ? <div>
-                        <EditOrder id={id} position={position} name={name} option={option} link={link} price={price} count={count} total={total} clickHandler={clickHandler}/>
+                        <EditOrder id={id} position={position} name={name} option={option} link={link} price={price} count={count} total={total} index={index} currency={currency} clickHandler={clickHandler}/>
                         </div>
                     
                     : <>

@@ -2,12 +2,15 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useTypedSelector } from './hooks/useTypedSelector';
 import { useActions } from './hooks/useActions';
+import { useRouter } from 'next/router';
 import OrderList from './orderList';
 import AddOrder from './addOrder';
 import UserCard from './userCard';
 import Auth from '../pages/auth';
+import { Button } from 'react-bootstrap';
 
 const UsersCard: React.FC = () => {
+    const router = useRouter()
     const {error,loading,users} = useTypedSelector(state => state.users)
     const {orderList} = useTypedSelector(state => state.orderList)
     const {order} = useTypedSelector(state => state.order)
@@ -82,12 +85,13 @@ const UsersCard: React.FC = () => {
                     <button className="btn btn-warning" onClick={logOut}>Log out</button> 
                     </div>
                 : <div><h3>Войдите в учетную запись чтобы добавлять и просматривать заказы</h3> 
-                    <Auth/>
+                    {/* <Auth/> */}
+                    <button className="btn btn-info" onClick={() => router.push('/auth')}>Авторизоваться</button>
                 </div>}
             
             {isAuth 
             ? <><div>Курс &#8364; = {editCurrency} &#8381; </div>
-             Изменить курс <input style={{ width: '2rem' }} value={editCurrency} onChange={e => setEditCurrency(Number(e.target.value) )}></input>
+             Изменить курс <input className="form-control" style={{ width: '4rem' }} value={editCurrency} onChange={e => setEditCurrency(Number(e.target.value) )}></input>
              </> 
              :<></> }
 

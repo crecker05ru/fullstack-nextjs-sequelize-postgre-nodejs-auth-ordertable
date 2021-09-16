@@ -48,7 +48,7 @@ export default function Orders ({listId,order,currency,currentUserId,userId}) {
         <>
         <div>
             {order.length > 0 ? order.map( (o,index) => 
-                <div className="card " style={{ width: '70rem' }}  key={o.id}>
+                <div className="card me-4"   key={o.id}>
                     <Order id={o.id} position={o.position} name={o.name} option={o.option} link={o.link} price={o.price} count={o.count} total={o.total} index={index} currency={currency} deleteOrd={deleteOrd} userId={userId}  currentUserId={currentUserId}/>
                 
                     

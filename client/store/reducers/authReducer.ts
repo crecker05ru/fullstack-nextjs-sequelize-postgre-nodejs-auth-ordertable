@@ -12,9 +12,9 @@ export const AuthDataReducer = (state = initialState,action: AuthAction) => {
         case AuthActionTypes.FETCH_AUTHDATA:
             return {...state,loading: true,error: null,authData: []}
         case AuthActionTypes.FETCH_AUTHDATA_SUCCESS:
-            return {...state,loading: false,error: null, authData: action.payload }
+            return {...state,loading: false,error: null, authData: action.payload,isAuth: true }
         case AuthActionTypes.FETCH_AUTHDATA_ERROR:
-            return {...state,loading: false,error: action.payload, authData:[]}
+            return {...state,loading: false,error: action.payload, authData:[],isAuth: false}
         default:
             return state
     }

@@ -7,12 +7,13 @@ import UsersCard from '../components/usersCard'
 import RegistrationCard from '../components/registrationCard'
 import LogIn from '../components/logIn'
 import { Provider } from 'react-redux'
-import {store} from "../store/"
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import {store} from "../store/"
+
 import MainContainer from '../components/mainContainer'
 import { Container, Navbar } from 'react-bootstrap'
 import { NavigationBar } from './../components/NavigationBar';
 import { FooterBar } from '../components/footerBar'
+import Auth from './auth'
 
 export default function Home() {
   console.log('NEXT_PUBLIC_ENV_VARIABLE',process.env.NEXT_PUBLIC_ENV_VARIABLE)
@@ -32,27 +33,16 @@ export default function Home() {
           </Navbar.Brand>
         </Container>
       </Navbar>
-      <NavigationBar/>
+
       <main className={styles.main}>        
-        <Provider store={store}>
+        {/* <Provider store={store}> */}
             <MainContainer/>
-          </Provider>
+            {/* <Auth/> */}
+          {/* </Provider> */}
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
 
-          </span>
-        </a>
-       
-      </footer>
-      <FooterBar />
+      
     </div>
   )
 }
