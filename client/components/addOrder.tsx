@@ -7,7 +7,7 @@ export default function AddOrder () {
     const [name, setName] = useState('')
     const [link,setLink] = useState('')
     const [option,setOption] = useState('')
-    const [price, setPrice] = useState(0)
+    const [price, setPrice] = useState()
     const [count, setCount] = useState(1)
     let [total,setTotal] = useState(0)
     const {authData} = useTypedSelector(state => state.authData)
@@ -34,8 +34,8 @@ export default function AddOrder () {
             <input placeholder="Название" value={name} onChange={e => setName(e.target.value)}></input>
             <input placeholder="Опция" value={option} onChange={e => setOption(e.target.value)}></input>
             <input placeholder="Ссылка" value={link} onChange={ e => setLink(e.target.value)}></input>
-            Цена в &#8364; <input placeholder="Цена"  value={price} onChange={e => setPrice(Number(e.target.value))}></input>
-            Количество  <input placeholder="Количество"  value={count} onChange={e => setCount(Number(e.target.value))}></input>
+            Цена в &#8364; <input placeholder="Цена" type="number" value={price} onChange={e => setPrice(e.target.value)}></input>
+            Количество  <input placeholder="Количество" type="number" value={count} onChange={e => setCount(e.target.value)}></input>
             <label placeholder="Total" >Итого &#8364;: {total=count*price} </label>
             {/* <label>ИД {id}</label> */}
             <button className="btn btn-info ms-2" onClick={add}>Add</button>

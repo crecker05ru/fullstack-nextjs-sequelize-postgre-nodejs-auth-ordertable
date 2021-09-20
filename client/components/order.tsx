@@ -18,16 +18,16 @@ export default function Order  ({id,position,name,option,link,price,count,total,
                         </div>
                     
                     : <>
-                            <div className="list-group-item d-flex justify-content-between">
+                            <div className="list-group-item  justify-content-between">
                                 {/* Номер - {index+1} Наименование - {name} | Опция - {option} | Ссылка - <a href={link} target="_blank">{link}</a>  | Цена -  {price} &#8364;| Количество - {count} | Итого в &#8364; - {total}  Итого в &#8381; - {(total*currency).toFixed(2)} */}
                                 
-                            <Table  size="sm">
+                            <Table  size="sm" responsive>
                                 <thead>
                                     <tr>
                                         <th>Номер</th>
                                         <th>Наименование</th>
-                                        <th>Опция</th>
-                                        <th>Ссылка</th>
+                                        <th >Опция</th>
+                                        <th  >Ссылка</th>
                                         <th>Цена &#8364;</th>
                                         <th>Количество</th>
                                         <th>Итого в &#8364;</th>
@@ -41,7 +41,7 @@ export default function Order  ({id,position,name,option,link,price,count,total,
                                         <td>{index+1}</td>
                                         <td>{name}</td>
                                         <td>{option}</td>
-                                        <td><a href={link} target="_blank">{link}</a></td>
+                                        <td><a  href={link} target="_blank">{link}</a></td>
                                         <td>{price}</td>
                                         <td>{count}</td>
                                         <td>{total}</td>

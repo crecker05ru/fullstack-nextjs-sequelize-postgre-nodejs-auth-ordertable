@@ -24,7 +24,13 @@ margin: 10px 0px 10px 100px;
   width: 200px;
   text-align: center;
 }
-
+.overflow-hidden{
+  overflow: hidden;
+}
+.href-container-w20px{
+  display:block;
+  width:20px;
+}
 span:hover{
   cursor: pointer;
 }

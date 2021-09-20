@@ -35,7 +35,7 @@ export default function EditOrder ({id,position,name,option,link,price,count,tot
             Цена в &#8364; <input placeholder="Цена"  value={editPrice} onChange={e => setEditPrice(Number(e.target.value))}></input>
             Количество  <input placeholder="Количество"  value={editCount} onChange={e => setEditCount(Number(e.target.value))}></input>
             <label placeholder="Total" >Итого &#8364;: {editTotal=editCount*editPrice} </label> */}
-            <Table  size="sm">
+            <Table  size="sm" responsive>
                                 <thead>
                                     <tr>
                                         <th>Номер</th>

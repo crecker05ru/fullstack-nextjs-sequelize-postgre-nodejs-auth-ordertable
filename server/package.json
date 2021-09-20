@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production nodemon index.js",
+    "server": "nodemon index.js",
+    "client": "cd ../client && npm run dev",
+    "concurrently": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+    "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -25,6 +29,7 @@
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.12"
   }
 }

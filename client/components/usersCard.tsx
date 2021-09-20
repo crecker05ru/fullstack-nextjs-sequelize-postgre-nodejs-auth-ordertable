@@ -36,6 +36,7 @@ const UsersCard: React.FC = () => {
 
     const logOut = async () => {
         logoutUser()
+        router.push('/auth')
     }
 
     // if(authData.role == "USER"){
@@ -78,26 +79,28 @@ const UsersCard: React.FC = () => {
         <>
             <div >
            
-                {isAuth
+                {/* {isAuth
                 ? <div>
                     
                     <AddOrder/> 
                     <button className="btn btn-warning" onClick={logOut}>Log out</button> 
                     </div>
                 : <div><h3>Войдите в учетную запись чтобы добавлять и просматривать заказы</h3> 
-                    {/* <Auth/> */}
+                    // <Auth/> 
                     <button className="btn btn-info" onClick={() => router.push('/auth')}>Авторизоваться</button>
-                </div>}
+                </div>} */}
             
-            {isAuth 
-            ? <><div>Курс &#8364; = {editCurrency} &#8381; </div>
+             <><div>
+                    <AddOrder/> 
+                    <button className="btn btn-warning" onClick={logOut}>Log out</button> 
+                    </div>
+            <div>Курс &#8364; = {editCurrency} &#8381; </div>
              Изменить курс <input className="form-control" style={{ width: '4rem' }} value={editCurrency} onChange={e => setEditCurrency(Number(e.target.value) )}></input>
              </> 
-             :<></> }
+             
 
             <div className="usercard">
-                {isAuth
-                ? <>
+                
                 {users
                 ? 
                  users.map(u => <div key={u.id}>
@@ -117,11 +120,9 @@ const UsersCard: React.FC = () => {
                 //         </div>
                         ) 
                         : "Список пользователей пуст"}
-                </>
-                : <>
+              
                 
-                </> 
-                }
+                
                     
                         </div>
             </div>
