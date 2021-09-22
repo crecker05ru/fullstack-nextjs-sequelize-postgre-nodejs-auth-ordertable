@@ -15,6 +15,8 @@ const UsersCard: React.FC = () => {
     const {orderList} = useTypedSelector(state => state.orderList)
     const {order} = useTypedSelector(state => state.order)
     const [editCurrency,setEditCurrency] = useState(86)
+    const [editOrderLimit,setEditOrderLimit] = useState(200)
+    const [editOrderShippingCost,setEditOrderShippingCost] = useState(20)
     const {isAuth,user} = useTypedSelector(state => state.user)
     const {authData} = useTypedSelector(state => state.authData)
     const {fetchUsers,fetchOrderList,fetchOrder,fetchCurrency,logoutUser} = useActions()
@@ -91,20 +93,28 @@ const UsersCard: React.FC = () => {
                 </div>} */}
             
              <><div>
-                    <AddOrder/> 
-                    <button className="btn btn-warning" onClick={logOut}>Log out</button> 
-                    </div>
-            <div>Курс &#8364; = {editCurrency} &#8381; </div>
+                 <div>
+                 <div>Курс &#8364; = {editCurrency} &#8381; </div>
              Изменить курс <input className="form-control" style={{ width: '4rem' }} value={editCurrency} onChange={e => setEditCurrency(Number(e.target.value) )}></input>
+             <span>Сумма корзины в &#8364;</span><input className="form-control" style={{ width: '4rem' }} value={editOrderLimit} onChange={e => setEditOrderLimit(Number(e.target.value) )}></input>
+             <span>Стоимость доставки на сайте в &#8364;</span><input className="form-control" style={{ width: '4rem' }} value={editOrderShippingCost} onChange={e => setEditOrderShippingCost(Number(e.target.value) )}></input>
+                 </div>
+                    <AddOrder/> 
+                    <div className="d-flex">
+                    <button className="btn ms-2 mt-2 btn-warning  col-3  ms-auto me-auto" onClick={logOut}>Log out</button> 
+                    </div>
+                    
+                    </div>
+           
              </> 
              
 
-            <div className="usercard">
+            <div className="ms-2">
                 
                 {users
                 ? 
                  users.map(u => <div key={u.id}>
-                     <UserCard user={u}  orderList={orderList} currency={editCurrency} order={order}/>   
+                     <UserCard user={u}  orderList={orderList} currency={editCurrency} order={order} editOrderLimit={editOrderLimit} editOrderShippingCost={editOrderShippingCost}/>   
                      </div>
 
                 //         <div className="card border-dark mb-3  users" style={{ width: '18rem' }}>{u.id} - {u.name}</div>

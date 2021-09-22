@@ -31,6 +31,12 @@ margin: 10px 0px 10px 100px;
   display:block;
   width:20px;
 }
+.border-radius-5px{
+  border-radius: 5px;
+}
+.min-width-200px{
+  min-width: 200px;
+}
 span:hover{
   cursor: pointer;
 }

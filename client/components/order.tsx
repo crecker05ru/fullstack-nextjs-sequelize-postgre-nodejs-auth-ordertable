@@ -2,7 +2,7 @@ import EditOrder from './editOrder';
 import { useState } from 'react';
 import { Table } from 'react-bootstrap';
 
-export default function Order  ({id,position,name,option,link,price,count,total,index,deleteOrd,currency,userId,currentUserId }) {
+export default function Order  ({id,position,name,option,link,price,count,total,index,deleteOrd,currency,editOrderLimit,userId,currentUserId }) {
 
     const [edit,setEdit] = useState(false)
 

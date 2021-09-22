@@ -9,7 +9,7 @@ import AddOrder from './addOrder';
 
 
 
-export default function OrderList ({id,orderList,order,currency}){
+export default function OrderList ({id,orderList,order,currency,editOrderLimit,editOrderShippingCost}){
     // const [users,setUsers] = useState([])
     // const [orders,setOrders] = useState([])
     // const {fetchOrderList,fetchOrderListById,fetchOrderById} = useActions()
@@ -24,8 +24,13 @@ export default function OrderList ({id,orderList,order,currency}){
     const [editPayed,setEditPayed] = useState(false)
     let [difference,setDifference] = useState(list.difference)
     const {editOrderList,newOrderList} = useActions()
+    let [totalInRub,setTotalInRub] = useState(currency*order.reduce((prev,current)=> {return prev + current.total},0).toFixed(2))
  
     editTotal = order.reduce((prev,current)=> {return prev + current.total},0)
+    shipping = (editTotal/editOrderLimit*editOrderShippingCost)
+    Number(shipping).toFixed(2)
+    totalWithShipping = (editTotal + shipping).toFixed(2)
+    difference =  totalInRub - editPayedTotal
 
     console.log('orderList',orderList)
     // console.log('orders',orders)
@@ -46,6 +51,7 @@ export default function OrderList ({id,orderList,order,currency}){
     const newOrderListHandler = () => {
         newOrderList(list.userId)
     }
+
     
 //      async  function loadUsers () {
 //         const response =  await fetch("https://jsonplaceholder.typicode.com/users")
@@ -76,25 +82,31 @@ export default function OrderList ({id,orderList,order,currency}){
         return <h3>Нет списка</h3>
     }
     return (
-    <div>
-        Итого корзины = {editTotal} &#8364; 
-        | Итого в &#8381; =     {currency*order.reduce((prev,current)=> {return prev + current.total},0).toFixed(2)}
-        | Оплачено в &#8381;  - {editPayedTotal}
+    <div >
+        <div className="d-flex flex-wrap me-4 border border-warning mt-1">
+        <div className="ms-auto me-auto mt-auto">| Итого корзины = {editTotal} &#8364; </div>
+        <div className="ms-auto me-auto mt-auto">| Итого в &#8381; =   {totalInRub}</div>
+        <div className="ms-auto me-auto mt-auto">| Доставка в &#8364; - {shipping}</div>
+        <div className="ms-auto me-auto mt-auto">| Итого + доставка в &#8364; - {totalWithShipping}</div>
+       <div className="ms-auto me-auto mt-auto">| Оплачено в &#8381;  - {editPayedTotal}</div> 
+       <div className="ms-auto me-auto mt-auto">| Разница в &#8381; - {difference}</div>
       <div className="mt-1">
         {id == currentUserId 
         ?<>
-        <button className="btn btn-info" onClick={newOrderListHandler}>Новый список</button>
+        <button className="btn btn-primary" onClick={newOrderListHandler}>Новый список</button>
         {editPayed 
-        ? <><input value={editPayedTotal} onChange={e => setEditPayedTotal(e.target.value)}></input>
-        <button className="btn btn-info" onClick={updateOrderList}>Обновить</button> 
+        ? <>
+        <button className="btn btn-warning" onClick={updateOrderList}>Обновить</button> 
+        <input className="border-radius-5px ms-1 me-1" value={editPayedTotal} type="number" onChange={e => setEditPayedTotal(e.target.value)}></input>
         </>
-        : <button className="btn btn-info" onClick={handlTotalPayed}>Изменить</button> 
+        : <button className="btn btn-success " onClick={handlTotalPayed}>Изменить</button> 
         } </>
         : <></>
             }
          </div>
+         </div>
         <div>
-            <Orders listId={list.id} userId={list.userId} order={order.filter(o => o.orderListId == list.id)} currency={currency}  currentUserId ={currentUserId }/> 
+            <Orders listId={list.id} userId={list.userId} order={order.filter(o => o.orderListId == list.id)} currency={currency} editOrderLimit={editOrderLimit} currentUserId ={currentUserId }/> 
         </div>
 
     </div>

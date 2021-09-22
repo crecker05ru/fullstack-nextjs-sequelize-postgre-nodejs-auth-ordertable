@@ -7,7 +7,7 @@ import AddOrder from './addOrder';
 import Order from './order'
 import EditOrder from './editOrder';
 
-export default function Orders ({listId,order,currency,currentUserId,userId}) {
+export default function Orders ({listId,order,currency,editOrderLimit,currentUserId,userId}) {
     
     const [edit,setEdit] = useState(false)
     const {deleteOrder,editOrder} = useActions()
@@ -49,12 +49,14 @@ export default function Orders ({listId,order,currency,currentUserId,userId}) {
         <div>
             {order.length > 0 ? order.map( (o,index) => 
                 <div className="card me-4"   key={o.id}>
-                    <Order id={o.id} position={o.position} name={o.name} option={o.option} link={o.link} price={o.price} count={o.count} total={o.total} index={index} currency={currency} deleteOrd={deleteOrd} userId={userId}  currentUserId={currentUserId}/>
+                    <Order id={o.id} position={o.position} name={o.name} option={o.option} link={o.link} price={o.price} count={o.count} total={o.total} index={index} currency={currency} editOrderLimit={editOrderLimit} deleteOrd={deleteOrd} userId={userId}  currentUserId={currentUserId}/>
                 
                     
                     
                 </div>
-            ) : "Нет заказов" }
+            ) : <div className="d-flex">
+                    <div className="  p-1 ms-auto me-auto mt-1 border border-danger rounded-pill">Нет заказов </div>
+                </div>}
         </div>
         </>
     )
