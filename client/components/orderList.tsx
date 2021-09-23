@@ -27,10 +27,13 @@ export default function OrderList ({id,orderList,order,currency,editOrderLimit,e
     let [totalInRub,setTotalInRub] = useState(currency*order.reduce((prev,current)=> {return prev + current.total},0).toFixed(2))
  
     editTotal = order.reduce((prev,current)=> {return prev + current.total},0)
+    editTotal.toFixed(2)
     shipping = (editTotal/editOrderLimit*editOrderShippingCost)
     Number(shipping).toFixed(2)
     totalWithShipping = (editTotal + shipping).toFixed(2)
     difference =  totalInRub - editPayedTotal
+    totalInRub = editTotal * currency
+    totalInRub.toFixed(2)
 
     console.log('orderList',orderList)
     // console.log('orders',orders)
@@ -84,12 +87,14 @@ export default function OrderList ({id,orderList,order,currency,editOrderLimit,e
     return (
     <div >
         <div className="d-flex flex-wrap me-4 border border-warning mt-1">
-        <div className="ms-auto me-auto mt-auto">| Итого корзины = {editTotal} &#8364; </div>
+        <div className="ms-auto me-auto mt-auto">| Итого корзины = {editTotal.toFixed(2)} &#8364; </div>
         <div className="ms-auto me-auto mt-auto">| Итого в &#8381; =   {totalInRub}</div>
-        <div className="ms-auto me-auto mt-auto">| Доставка в &#8364; - {shipping}</div>
+        <div className="ms-auto me-auto mt-auto">| Доставка в &#8364; - {shipping.toFixed(2)}</div>
         <div className="ms-auto me-auto mt-auto">| Итого + доставка в &#8364; - {totalWithShipping}</div>
-       <div className="ms-auto me-auto mt-auto">| Оплачено в &#8381;  - {editPayedTotal}</div> 
-       <div className="ms-auto me-auto mt-auto">| Разница в &#8381; - {difference}</div>
+       {editPayed 
+       ? <input className="border-radius-5px border-2 form-control-sm" value={editPayedTotal} type="number" onChange={e => setEditPayedTotal(e.target.value)}></input>
+       : <div className="ms-auto me-auto mt-auto">| Оплачено в &#8381;  - {editPayedTotal}</div> }
+       <div className="ms-auto me-auto mt-auto">| Разница в &#8381; - {difference.toFixed(2)}</div>
       <div className="mt-1">
         {id == currentUserId 
         ?<>
@@ -97,7 +102,7 @@ export default function OrderList ({id,orderList,order,currency,editOrderLimit,e
         {editPayed 
         ? <>
         <button className="btn btn-warning" onClick={updateOrderList}>Обновить</button> 
-        <input className="border-radius-5px ms-1 me-1" value={editPayedTotal} type="number" onChange={e => setEditPayedTotal(e.target.value)}></input>
+        
         </>
         : <button className="btn btn-success " onClick={handlTotalPayed}>Изменить</button> 
         } </>

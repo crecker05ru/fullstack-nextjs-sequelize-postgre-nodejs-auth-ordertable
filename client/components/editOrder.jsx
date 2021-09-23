@@ -56,9 +56,9 @@ export default function EditOrder ({id,position,name,option,link,price,count,tot
                                         <td><input placeholder="Название" value={editName} onChange={e => setEditName(e.target.value)}></input></td>
                                         <td><input placeholder="Опция" value={editOption} onChange={e => setEditOption(e.target.value)}></input></td>
                                         <td><input placeholder="Ссылка" value={editLink} onChange={ e => setEditLink(e.target.value)}></input></td>
-                                        <td><input placeholder="Цена"  value={editPrice} onChange={e => setEditPrice(Number(e.target.value))}></input></td>
-                                        <td><input placeholder="Количество"  value={editCount} onChange={e => setEditCount(Number(e.target.value))}></input></td>
-                                        <td><label placeholder="Total" >Итого &#8364;: {editTotal=editCount*editPrice} </label></td>
+                                        <td><input placeholder="Цена"  value={editPrice}  type="number" onChange={e => setEditPrice(Number(e.target.value))}></input></td>
+                                        <td><input placeholder="Количество"  value={editCount} type="number" onChange={e => setEditCount(Number(e.target.value))}></input></td>
+                                        <td><label placeholder="Total" >Итого &#8364;: {!editPrice ? 0 : editTotal=editCount*editPrice} </label></td>
                                         <td>{(total*currency).toFixed(2)}</td>
                                         <td> <button onClick={()=> editHandler(id,editPosition,editName,editOption,editLink,editPrice,editCount,editTotal)} className="btn btn-success">&#10003;</button></td>
                                     </tr>

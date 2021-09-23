@@ -93,11 +93,11 @@ const UsersCard: React.FC = () => {
                 </div>} */}
             
              <><div>
-                 <div>
+                 <div className="d-flex ms-2 align-content-center flex-wrap">
                  <div>Курс &#8364; = {editCurrency} &#8381; </div>
-             Изменить курс <input className="form-control" style={{ width: '4rem' }} value={editCurrency} onChange={e => setEditCurrency(Number(e.target.value) )}></input>
-             <span>Сумма корзины в &#8364;</span><input className="form-control" style={{ width: '4rem' }} value={editOrderLimit} onChange={e => setEditOrderLimit(Number(e.target.value) )}></input>
-             <span>Стоимость доставки на сайте в &#8364;</span><input className="form-control" style={{ width: '4rem' }} value={editOrderShippingCost} onChange={e => setEditOrderShippingCost(Number(e.target.value) )}></input>
+             Изменить курс <input className="border-radius-5px border-2 ms-1 me-3" style={{ width: '4rem' }} value={editCurrency} onChange={e => setEditCurrency(Number(e.target.value) )}></input>
+             <span>Сумма корзины в &#8364;</span><input className="border-radius-5px border-2 ms-1 me-3" style={{ width: '4rem' }} value={editOrderLimit} onChange={e => setEditOrderLimit(Number(e.target.value) )}></input>
+             <span>Стоимость доставки на сайте в &#8364;</span><input className="border-radius-5px border-2 ms-1 me-3" style={{ width: '4rem' }} value={editOrderShippingCost} onChange={e => setEditOrderShippingCost(Number(e.target.value) )}></input>
                  </div>
                     <AddOrder/> 
                     <div className="d-flex">

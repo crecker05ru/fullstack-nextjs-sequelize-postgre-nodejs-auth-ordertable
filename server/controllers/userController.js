@@ -2,6 +2,8 @@ const ApiError = require("../error/ApiError")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const {User,UserProfile,OrderList} = require("../models/models")
+const mailService = require("../middleware/mail-service")
+const uuid = require("uuid")
 
 const generateJwt = (id, email, role) => {
     return jwt.sign(
@@ -22,11 +24,16 @@ class UserController {
             return next(ApiError.badRequest("Такой пользователь уже существует"))
         }
         const hashPassword = await bcrypt.hash(password, 7)
+        const activationLink = uuid.v4()
+
         const user = await User.create({email,role, password: hashPassword})
+        await mailService.sendActivationMail(email,`${process.env.API_URL}/api/activate/${activationLink}`)
+
         const userProfile = await UserProfile.create({email,name,userId: user.id})
         const orderList = await OrderList.create({userId: user.id})
-        // user.setOrderList(orderList)
+        //user.setOrderList(orderList)
         userProfile.setOrderList(orderList)
+        
         console.log('user',{...user})
         const token = generateJwt(user.id, user.email, user.role)
         return res.json({token,orderList})

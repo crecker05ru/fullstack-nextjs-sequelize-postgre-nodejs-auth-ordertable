@@ -29,7 +29,7 @@ export default function AddOrder () {
     
     return (
         <>
-        <div className="mt-3">
+        <div className="mt-2 ms-2">
         <div >Добавить заказ </div>
         <div className="d-flex flex-wrap">
 
@@ -38,7 +38,7 @@ export default function AddOrder () {
                 <input className="border-2 border-radius-5px" placeholder="Ссылка" value={link} onChange={ e => setLink(e.target.value)}></input>
                 <input className="border-2 border-radius-5px" placeholder="Цена в &#8364;" type="number" value={price} onChange={e => setPrice(e.target.value)}></input>
                 <input className="border-2 border-radius-5px " placeholder="Количество" type="number" value={count} onChange={e => setCount(e.target.value)}></input>
-                <label placeholder="Total"  className="">Итого &#8364;: {total=count*price} </label>
+                <label placeholder="Total"  className="">Итого &#8364;: { !price ? 0 : total=count*price} </label>
                 {/* <label>ИД {id}</label> */}
             </div>
            
