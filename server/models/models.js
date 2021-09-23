@@ -24,7 +24,7 @@ const OrderList = sequelize.define("orderList",{
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     total: {type: DataTypes.FLOAT,defaultValue: 0},
     shipping: {type: DataTypes.FLOAT,defaultValue: 0},
-    totalWithShipping: {type: DataTypes.INTEGER,defaultValue: 0},
+    totalWithShipping: {type: DataTypes.FLOAT,defaultValue: 0},
     payedTotal: {type: DataTypes.FLOAT,defaultValue: 0},
     defference: {type: DataTypes.FLOAT,defaultValue: 0},
     isClosed: {type: DataTypes.BOOLEAN,defaultValue: false}
