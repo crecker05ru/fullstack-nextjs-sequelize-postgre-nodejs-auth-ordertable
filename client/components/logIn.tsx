@@ -25,14 +25,15 @@ export default function LogIn () {
     
     const [formValid,setFormValid] = useState(false)
 
-    const {loginUser,logoutUser,authUser,fetchAuthData,registerUser} = useActions()
+    const {loginUser,logoutUser,authUser,fetchAuthData,registerUser,forgetPasswordRequest} = useActions()
     const {isAuth,user,error} = useTypedSelector(state => state.user)
     const [loginPage,setLoginPage] = useState(true)
+    const [forgetPasswordPage,setForgetPasswordPage] = useState(false)
 
     console.log('isAuth,user',isAuth,user)
 
     useEffect(()=> {
-        if(emailError || passwordError||(!loginPage&&nameError)){
+        if(emailError || (passwordError && !forgetPasswordPage) ||(!loginPage&&nameError)){
             setFormValid(false)
         }else{
             setFormValid(true)
@@ -96,6 +97,9 @@ export default function LogIn () {
     const logOut = async () => {
         logoutUser()
     }
+    const forgetPassword = async () => {
+        forgetPasswordRequest(email)
+    }
     useEffect(()=>{
         fetchAuthData()
     },[])
@@ -117,6 +121,9 @@ export default function LogIn () {
         }
 
     }
+    const forgetPasswordSwitch = () => {
+        setForgetPasswordPage(!forgetPasswordPage)
+    }
 
     if(isAuth){
         router.push("/")
@@ -136,7 +143,53 @@ export default function LogIn () {
     //         console.log(e)
     //     }
     // }
+    if(forgetPasswordPage){
+        return (<>
+            <Container
+            className="d-flex justify-content-center align-items-center"
+            // style={{height: window.innerHeight - 54}}
+        >
+            <Card style={{width: 600}} className="p-5">
+                <h2 className="m-auto">Сбросить пароль</h2>
+                <Form className="d-flex flex-column">
+                    {(emailIsBlur && emailError) && <div className="text-danger">{emailError}</div>}
+                    <Form.Control
+                        className="mt-3"
+                        placeholder="Введите ваш email..."
+                        value={email}
+                        name="email"
+                        onChange={e => emailHandler(e)}
+                        onBlur={e => blurHandler(e)}
+                        
+                    />
+                    <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
+                        {loginPage ?
+                            <div>
+                                Нет аккаунта? <span className="link-info pe-auto"   onClick={() => setLoginPage(!loginPage)}>Зарегистрируйся!</span>
+                            </div>
+                            :
+                            <div>
+                                Есть аккаунт? <span className="link-info pe-auto" onClick={() =>setLoginPage(!loginPage)}>Войдите!</span>
+                            </div>
+                        }
+                        <div>
+                                <span className="link-info pe-auto" onClick={forgetPasswordSwitch}>Забыли пароль?</span>
+                        </div>
+                        <Button
+                            variant={"btn btn-primary"}
+                            onClick={forgetPassword}
+                            disabled={!formValid}
+                        >
+                            Сбросить
+                        </Button>
+                        {error ? <div className="text-danger">  {error}</div> : <></>}
+                    </Row>
 
+                </Form>
+            </Card>
+        </Container>
+        </>) 
+    }
     return(
         <div>
             
@@ -210,6 +263,9 @@ export default function LogIn () {
                                 Есть аккаунт? <span className="link-info pe-auto" onClick={() =>setLoginPage(!loginPage)}>Войдите!</span>
                             </div>
                         }
+                        <div>
+                                <span className="link-info pe-auto" onClick={forgetPasswordSwitch}>Забыли пароль?</span>
+                        </div>
                         <Button
                             variant={"btn btn-primary"}
                             onClick={click}

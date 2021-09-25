@@ -71,6 +71,26 @@ export const logoutUser = () => {
         }
     }
 }
+
+export const forgetPasswordRequest = (email) => async (dispatch) =>  {
+    try{
+        const response = await axios.post("http://localhost:3001/api/user/forgot-password",{email})
+        console.log(response,'response in forget-password')
+        return response.data.message
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export const resetPasswordRequest = (id,password) => async (dispatch) => {
+    try{
+        const response = await axios.post("http://localhost:3001/api/user/reset-password",{id,password})
+        console.log(response,'response in reset-password')
+        return response.data.message
+    }catch(e){
+        console.log(e)
+    }
+}
 export const authUser = () => {
     return async (dispatch) => {
         try{
