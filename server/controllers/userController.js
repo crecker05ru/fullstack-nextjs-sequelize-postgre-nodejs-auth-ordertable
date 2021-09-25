@@ -27,7 +27,7 @@ class UserController {
         const activationLink = uuid.v4()
 
         const user = await User.create({email,role, password: hashPassword})
-        await mailService.sendActivationMail(email,`${process.env.API_URL}/api/activate/${activationLink}`)
+        await mailService.sendRegistrationMail(email,`${process.env.API_URL}/api/activate/${activationLink}`)
 
         const userProfile = await UserProfile.create({email,name,userId: user.id})
         const orderList = await OrderList.create({userId: user.id})
@@ -51,6 +51,42 @@ class UserController {
 
         const token = generateJwt(user.id, user.email,user.role)
         return res.json({token})
+    }
+
+    async forgotPassword (req,res ,next){
+        try{
+            const {email} = req.body
+            const user = await User.findOne({where:{email}})
+            if(!user){
+                // return res.json(`пользователь ${email} не найден`)
+                return res.status(400).send(`пользователь c  ${email} не существует`)
+            }
+            const token = uuid.v4()
+            const link = `${process.env.API_URL}/reset-password?token=${token}&id=${user.id}`
+            await mailService.sendResetPasswordMail(email,link)
+
+            return res.send("Письмо отправлено на ваш email")
+            // return res.json({email})
+        }catch(e){
+            console.log(e)
+            return res.send("Непредвиденная ошибка")
+        }        
+    }
+
+    async resetPassword(req,res,next){
+        try{
+            // const id = req.params.id
+            const id = req.body.id
+            const user = await User.findOne({where:{id}})
+            const hashPassword = await bcrypt.hash(req.body.password, 7)
+            user.password = hashPassword
+            await mailService.sendChangedPasswordMail(user.email)
+            await user.save()
+            return res.send("Новый пароль установлен")
+        }catch(e){
+            console.log(e)
+            return res.send("Непредвиденная ошибка")
+        }
     }
     async logout (req, res,next){
         const {token} = req.body

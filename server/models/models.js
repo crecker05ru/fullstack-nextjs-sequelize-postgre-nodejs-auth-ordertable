@@ -26,7 +26,7 @@ const OrderList = sequelize.define("orderList",{
     shipping: {type: DataTypes.FLOAT,defaultValue: 0},
     totalWithShipping: {type: DataTypes.FLOAT,defaultValue: 0},
     payedTotal: {type: DataTypes.FLOAT,defaultValue: 0},
-    defference: {type: DataTypes.FLOAT,defaultValue: 0},
+    difference: {type: DataTypes.FLOAT,defaultValue: 0},
     isClosed: {type: DataTypes.BOOLEAN,defaultValue: false}
     
 
@@ -47,7 +47,7 @@ User.hasOne(UserProfile,{ onDelete: "cascade",foreignKey: "userId"})
 UserProfile.belongsTo(User)
 
 User.hasOne(OrderList,{ onDelete: "cascade",foreignKey: "userId"})
-// OrderList.belongsTo(User)
+OrderList.belongsTo(User)
 
 UserProfile.hasOne(OrderList,{ onDelete: "cascade",foreignKey: "userProfileId"})
 OrderList.belongsTo(UserProfile)
