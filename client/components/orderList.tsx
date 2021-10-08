@@ -6,13 +6,14 @@ import {useDispatch,useSelector} from "react-redux";
 import { useTypedSelector } from './hooks/useTypedSelector';
 import { useActions } from './hooks/useActions';
 import AddOrder from './addOrder';
-
+import { useRouter } from 'next/router'
 
 
 export default function OrderList ({id,orderList,order,currency,editOrderLimit,editOrderShippingCost}){
     // const [users,setUsers] = useState([])
     // const [orders,setOrders] = useState([])
     // const {fetchOrderList,fetchOrderListById,fetchOrderById} = useActions()
+    const router = useRouter()
     const {authData} = useTypedSelector(state => state.authData)
     const currentUserId = authData.id
     const list = orderList[orderList.length - 1]
@@ -24,16 +25,16 @@ export default function OrderList ({id,orderList,order,currency,editOrderLimit,e
     const [editPayed,setEditPayed] = useState(false)
     let [difference,setDifference] = useState(list.difference)
     const {editOrderList,newOrderList} = useActions()
-    let [totalInRub,setTotalInRub] = useState(currency*order.reduce((prev,current)=> {return prev + current.total},0).toFixed(2))
+    let [totalInRub,setTotalInRub] = useState(Number(currency*order.reduce((prev,current)=> {return prev + current.total},0).toFixed(2)))
  
     editTotal = order.reduce((prev,current)=> {return prev + current.total},0)
     editTotal.toFixed(2)
     shipping = (editTotal/editOrderLimit*editOrderShippingCost)
     Number(shipping).toFixed(2)
     totalWithShipping = (editTotal + shipping).toFixed(2)
-    difference =  totalInRub - editPayedTotal
-    totalInRub = editTotal * currency
-    totalInRub.toFixed(2)
+    difference =  editPayedTotal - totalInRub
+    totalInRub = (editTotal * currency).toFixed(2)
+    
 
     console.log('orderList',orderList)
     // console.log('orders',orders)
@@ -50,6 +51,7 @@ export default function OrderList ({id,orderList,order,currency,editOrderLimit,e
     const updateOrderList = () => {
         setEditPayed(!editPayed)
         editOrderList(listId,editTotal,shipping,totalWithShipping,editPayedTotal,difference)
+        router.reload()
     }
     const newOrderListHandler = () => {
         newOrderList(list.userId)
@@ -98,7 +100,7 @@ export default function OrderList ({id,orderList,order,currency,editOrderLimit,e
       <div className="mt-1">
         {id == currentUserId 
         ?<>
-        <button className="btn btn-primary" onClick={newOrderListHandler}>Новый список</button>
+         <button className="btn btn-primary" onClick={newOrderListHandler}>Новый список</button>
         {editPayed 
         ? <>
         <button className="btn btn-warning" onClick={updateOrderList}>Обновить</button> 

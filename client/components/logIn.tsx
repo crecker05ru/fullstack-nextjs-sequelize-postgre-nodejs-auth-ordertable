@@ -100,11 +100,14 @@ export default function LogIn () {
     const forgetPassword = async () => {
         forgetPasswordRequest(email)
     }
-    useEffect(()=>{
-        fetchAuthData()
-    },[])
+    // useEffect(()=>{
+    //     fetchAuthData()
+    // },[])
     useEffect( () =>{
-        authUser()
+        if(localStorage.getItem('token')){
+            authUser()
+        }
+        
     },[])
     
     const click = () => {

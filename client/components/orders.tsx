@@ -6,15 +6,17 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 import AddOrder from './addOrder';
 import Order from './order'
 import EditOrder from './editOrder';
+import { useRouter } from 'next/router';
 
 export default function Orders ({listId,order,currency,editOrderLimit,currentUserId,userId}) {
-    
+    const router = useRouter()
     const [edit,setEdit] = useState(false)
     const {deleteOrder,editOrder} = useActions()
     console.log("order",order)
 
     const deleteOrd = (id) => {
         deleteOrder(id)
+        router.reload()
     }
     // const clickHandler = () => {
     //     setEdit(!edit)

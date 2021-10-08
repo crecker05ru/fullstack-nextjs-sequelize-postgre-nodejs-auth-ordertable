@@ -1,8 +1,10 @@
 import { useState ,useEffect} from 'react';
 import { useActions } from './hooks/useActions';
 import { useTypedSelector } from './hooks/useTypedSelector';
+import { useRouter } from 'next/router'
 
 export default function AddOrder () {
+    const router = useRouter()
     const [position,setPosition] = useState(1)
     const [name, setName] = useState('')
     const [link,setLink] = useState('')
@@ -25,6 +27,7 @@ export default function AddOrder () {
     // console.log("currentOrderList.id",currentOrderList.id)
     const add = () => {
         addOrder(position,name,option,link,price,count,total,userId)
+        // router.reload()
     }
     
     return (
