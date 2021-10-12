@@ -45,7 +45,7 @@ export default function MainContainer () {
         <h4>WebSocket</h4>
         <WebSock/>
         <h4>SocketIo</h4>
-        <SocketIo/>
+        {/* <SocketIo/> */}
         {/* <Auth/> */}
 
         {/* {typeof window !== "undefined"  && !isAuth

@@ -8,12 +8,33 @@ import RegistrationCard from '../components/registrationCard'
 import LogIn from '../components/logIn'
 import { Provider } from 'react-redux'
 // import {store} from "../store/"
-
+import io from "socket.io-client";
 import MainContainer from '../components/mainContainer'
 import { Container, Navbar } from 'react-bootstrap'
 import { NavigationBar } from './../components/NavigationBar';
 import { FooterBar } from '../components/footerBar'
 import Auth from './auth'
+import Chat from '../chat/chat'
+import HomePage from '../chat/Home'
+
+const socket = io.connect('/');
+
+export function Appmain(props) {
+  return (
+    <div>
+      <div className="right">
+        <Chat
+          username={props.username}
+          roomname={props.roomname}
+          socket={socket}
+        />
+      </div>
+      <div className="left">
+        
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   console.log('NEXT_PUBLIC_ENV_VARIABLE',process.env.NEXT_PUBLIC_ENV_VARIABLE)
@@ -32,11 +53,13 @@ export default function Home() {
             <div className="text-decoration-none text-white"></div>
           </Navbar.Brand>
         </Container>
+        
       </Navbar>
 
       <main className={styles.main}>        
         {/* <Provider store={store}> */}
             <MainContainer/>
+            <HomePage socket={socket} />
             {/* <Auth/> */}
           {/* </Provider> */}
       </main>

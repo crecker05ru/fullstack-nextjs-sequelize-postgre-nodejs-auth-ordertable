@@ -6,10 +6,21 @@ import { store } from "../store/";
 import '../styles/globals.css';
 import { FooterBar } from '../components/footerBar';
 
+import Home from "../chat/Home";
+
+import { useRouter } from 'next/router'
+import Username from './chat/[roomname]/[username]'
+
+
+
+
+
 function MyApp({ Component, pageProps }:AppProps ) {
+
   return (
   <Provider store={store}>
     <NavigationBar/>
+
     <Component {...pageProps} />
     <FooterBar />
   </Provider>

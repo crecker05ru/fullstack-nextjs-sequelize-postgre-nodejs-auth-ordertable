@@ -4,6 +4,7 @@ import * as OrderListCreators from "./orderList"
 import * as UsersActionCreators from "./users"
 import * as AuthDataActionCreators from "./authData"
 import * as CurrencyActionCreators from "./currency"
+import * as ProcessActionCreators from './process'
 
 export default {
     ...UserActionCreators,
@@ -11,6 +12,7 @@ export default {
     ...OrderListCreators,
     ...UsersActionCreators,
     ...AuthDataActionCreators,
-    ...CurrencyActionCreators
+    ...CurrencyActionCreators,
+    ...ProcessActionCreators
 
 }

@@ -11,7 +11,9 @@ const socket = require("socket.io");
 const app = express()
 
 const PORT = process.env.PORT
-app.use(cors())
+app.use(cors({
+  origin: '*'
+}))
 app.use(express.json())
 app.use(fileUpload({}))
 app.use(express.static(path.resolve(__dirname, "static")))
@@ -20,7 +22,7 @@ app.use(errorHandler)
 
 let server = app.listen(PORT,() => console.log(`Server started on port ${PORT}`) )
 
-const io = socket(server)
+// const io = socket(server)
 const start = async () => {
     try {
         await sequelize.authenticate()
@@ -32,21 +34,21 @@ const start = async () => {
     }
 }
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
-    io.emit('connection','user connected')
-    socket.on('chat message', (msg) => {
-        console.log('message: ' + msg);
-        io.emit('chat message', msg);
+// io.on('connection', (socket) => {
+//     console.log('a user connected');
+//     io.emit('connection','user connected')
+//     socket.on('chat message', (msg) => {
+//         console.log('message: ' + msg);
+//         io.emit('chat message', msg);
         
-      });
-    socket.on('disconnect', () => {
-      console.log('user disconnected');
-    //   io.emit('disconnection','user disconnected')
-    socket.emit("dis", "disconn");
-    });
+//       });
+//     socket.on('disconnect', () => {
+//       console.log('user disconnected');
+//     //   io.emit('disconnection','user disconnected')
+//     socket.emit("dis", "disconn");
+//     });
     
-  });
+//   });
   
 
 start()

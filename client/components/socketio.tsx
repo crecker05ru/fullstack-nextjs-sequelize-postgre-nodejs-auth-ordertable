@@ -9,10 +9,10 @@ const SocketIo = () => {
     // const socket = useRef()
     const [connected, setConnected] = useState(false);
     const [username, setUsername] = useState('')
-    const SERVER_URL = 'http://localhost:3001'
+    const SERVER_URL = '/'
     const socketRef = useRef(null)
 
-    const socket = io('ws://localhost:3001')    
+    const socket = io.connect('/')    
 
     function sendMessage(value) {
         if (value){
