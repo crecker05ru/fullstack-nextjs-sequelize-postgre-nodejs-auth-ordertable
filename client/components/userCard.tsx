@@ -1,5 +1,6 @@
 import {BiUser} from "react-icons/bi"
 import OrderList from './orderList';
+import WebSock from './webSock';
 
 const UserCard = ({user,orderList,currency,order,editOrderLimit,editOrderShippingCost}) => {
     return(
@@ -7,6 +8,7 @@ const UserCard = ({user,orderList,currency,order,editOrderLimit,editOrderShippin
             <div>
 
                         <div className="card border-dark  mt-3 ms-auto me-auto users justify-content-between" ><BiUser/>{user.id}  | {user.userId}| {user.name}</div>
+                        <WebSock userName={user.name}/>
                         {console.log("u.id",user.id,user.userId)}
                         {orderList.filter(o=> o.userId == user.userId).map(o => 
                             <div key={o.id} >

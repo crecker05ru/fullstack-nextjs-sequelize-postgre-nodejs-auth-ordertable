@@ -7,8 +7,7 @@ import Auth from "../pages/auth"
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Spinner from 'react-bootstrap/Spinner'
-import WebSock from './webSock';
-import SocketIo from './socketio';
+
 
 export default function MainContainer () {
     const router = useRouter()
@@ -42,9 +41,7 @@ export default function MainContainer () {
         <h2>3. Deploy</h2>
         <h2>4. Лендинг-визитка</h2>
         <h2>5. Добавить почту</h2>
-        <h4>WebSocket</h4>
-        <WebSock/>
-        <h4>SocketIo</h4>
+
         {/* <SocketIo/> */}
         {/* <Auth/> */}
 

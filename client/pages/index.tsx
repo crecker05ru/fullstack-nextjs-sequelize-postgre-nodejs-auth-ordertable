@@ -17,24 +17,24 @@ import Auth from './auth'
 import Chat from '../chat/chat'
 import HomePage from '../chat/Home'
 
-const socket = io.connect('/');
+// const socket = io.connect('/');
 
-export function Appmain(props) {
-  return (
-    <div>
-      <div className="right">
-        <Chat
-          username={props.username}
-          roomname={props.roomname}
-          socket={socket}
-        />
-      </div>
-      <div className="left">
+// export function Appmain(props) {
+//   return (
+//     <div>
+//       <div className="right">
+//         <Chat
+//           username={props.username}
+//           roomname={props.roomname}
+//           socket={socket}
+//         />
+//       </div>
+//       <div className="left">
         
-      </div>
-    </div>
-  );
-}
+//       </div>
+//     </div>
+//   );
+// }
 
 export default function Home() {
   console.log('NEXT_PUBLIC_ENV_VARIABLE',process.env.NEXT_PUBLIC_ENV_VARIABLE)
@@ -59,7 +59,7 @@ export default function Home() {
       <main className={styles.main}>        
         {/* <Provider store={store}> */}
             <MainContainer/>
-            <HomePage socket={socket} />
+            {/* <HomePage socket={socket} /> */}
             {/* <Auth/> */}
           {/* </Provider> */}
       </main>

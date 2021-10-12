@@ -9,7 +9,7 @@ let clients = []
 
 wss.on('connection', function connection(ws){
     console.log('user connected')
-    console.log('wss.clients',wss.clients)
+    // console.log('wss.clients',wss.clients)
     clients.push(wss.clients)
     ws.on('message', function (message){
         message = JSON.parse(message);
@@ -17,11 +17,15 @@ wss.on('connection', function connection(ws){
             case 'message':
                 broadcastMessage(message)
                 history.push(message)
+                
                 history.slice(-100)
+                console.log('history',history)
                 break;
             case 'connection':
                 broadcastMessage(message)
                 broadcastMessage(history)
+                console.log('user connected in connection')
+                console.log('broadcastMessage(history)',broadcastMessage(history))
                 break ;   
         }
     } )

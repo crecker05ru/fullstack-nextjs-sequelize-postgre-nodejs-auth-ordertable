@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }:AppProps ) {
     <NavigationBar/>
 
     <Component {...pageProps} />
+    
     <FooterBar />
   </Provider>
   )

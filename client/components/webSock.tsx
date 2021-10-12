@@ -1,12 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
+import styles from '../styles/websocket.module.css'
+import {BsFillChatRightTextFill} from 'react-icons/bs'
 
-const WebSock = () => {
+const WebSock = ({userName}) => {
     const [messages, setMessages] = useState([]);
     const [value, setValue] = useState('');
     const socket = useRef()
     const [connected, setConnected] = useState(false);
-    const [username, setUsername] = useState('')
+    const [username, setUsername] = useState(userName)
+    const [showChat,setShowChat] = useState(false)
 
     function connect() {
         socket.current = new WebSocket('ws://localhost:3002')
@@ -30,7 +33,11 @@ const WebSock = () => {
         socket.current.onerror = () => {
             console.log('Socket произошла ошибка')
         }
+
     }
+    // useEffect(()=> {
+    //     connect()
+    // },[])
 
     const sendMessage = async () => {
         const message = {
@@ -43,10 +50,22 @@ const WebSock = () => {
         setValue('')
     }
 
+  const showChatHandler = () => {
+        setShowChat(!showChat)
+        if(!connected){
+            connect()
+        }
+    }
+    if(!showChat){
+        return (
+            <button className={styles.showChatButton} onClick={showChatHandler}>Open  <BsFillChatRightTextFill/></button>
+        )
+    }
 
     if (!connected) {
         return (
-            <div className="center">
+            <div className={styles.chatForm}>
+            {/* <div className="center">
                 <div className="form">
                     <input
                         value={username}
@@ -55,33 +74,43 @@ const WebSock = () => {
                         placeholder="Введите ваше имя"/>
                     <button onClick={connect}>Войти</button>
                 </div>
+            </div> */}
+            <div>Loading</div>
             </div>
         )
     }
 
 
     return (
+        <div className={styles.chatForm}>
         <div className="center">
             <div>
-                <div className="form">
-                    <input value={value} onChange={e => setValue(e.target.value)} type="text"/>
-                    <button onClick={sendMessage}>Отправить</button>
+                <div className={styles.chatHeader}>
+                    <input className={styles.inputText} value={value} onChange={e => setValue(e.target.value)} type="text"/>
+                    <button onClick={sendMessage} className={styles.buttonSend}>Отправить</button>
+                    <button onClick={() => setShowChat(!showChat)} className={styles.buttonClose}>X</button>
                 </div>
-                <div className="messages">
+                <div className={styles.messagesForm}>
                     {messages.map(mess =>
                         <div key={mess.id}>
                             {mess.event === 'connection'
-                                ? <div className="connection_message">
+                                ? <div>
+                                     <span className={userName == username ? styles.activeUser : styles.otherUsers}>{mess.username}</span>: {mess.message}
+                                     <div className="connection_message">
                                     Пользователь {mess.username} подключился
+                                   
                                 </div>
-                                : <div className="message">
-                                    {mess.username}. {mess.message}
+                                    </div>
+                                    
+                                : <div className={styles.messages}>
+                                    <span className={userName == username ? styles.activeUser : styles.otherUsers}>{mess.username}</span>: {mess.message}
                                 </div>
                             }
                         </div>
                     )}
                 </div>
             </div>
+        </div>
         </div>
     );
 };
