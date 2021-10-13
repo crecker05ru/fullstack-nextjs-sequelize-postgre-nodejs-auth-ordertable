@@ -11,6 +11,8 @@ wss.on('connection', function connection(ws){
     console.log('user connected')
     // console.log('wss.clients',wss.clients)
     clients.push(wss.clients)
+    console.log('clients',clients)
+    ws.on('close',()=>console.log('disconnected'))
     ws.on('message', function (message){
         message = JSON.parse(message);
         switch(message.event){
@@ -23,9 +25,9 @@ wss.on('connection', function connection(ws){
                 break;
             case 'connection':
                 broadcastMessage(message)
-                broadcastMessage(history)
+                // broadcastMessage(history)
+                client.send(JSON.stringify(history))
                 console.log('user connected in connection')
-                console.log('broadcastMessage(history)',broadcastMessage(history))
                 break ;   
         }
     } )

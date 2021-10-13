@@ -77,3 +77,15 @@
     background-color: rgb(151, 44, 110);
     border-radius: 5px;
 }
+.previosMessages{
+    background-color: #000;
+    border-radius: 10px;
+    text-align: center;
+    color: #fff;
+}
+.loadPrevious{
+    border-radius: 15px;
+    background-color: rgb(255, 230, 4);
+    border: none;
+    font-family :Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

@@ -5,14 +5,17 @@ import {BsFillChatRightTextFill} from 'react-icons/bs'
 
 const WebSock = ({userName}) => {
     const [messages, setMessages] = useState([]);
+    // const [previousMessages,setPreviousMessages] = useState([])
     const [value, setValue] = useState('');
     const socket = useRef()
     const [connected, setConnected] = useState(false);
     const [username, setUsername] = useState(userName)
     const [showChat,setShowChat] = useState(false)
-
+    const [showPreviousMessages,setShowPreviousMessages] = useState(false)
+    console.log('messages in websocket',messages)
+    // console.log('previousMessages',previousMessages)
     function connect() {
-        socket.current = new WebSocket('ws://localhost:3002')
+        socket.current = new WebSocket('ws://localhost:3001')
 
         socket.current.onopen = () => {
             setConnected(true)
@@ -26,9 +29,18 @@ const WebSock = ({userName}) => {
         socket.current.onmessage = (event) => {
             const message = JSON.parse(event.data)
             setMessages(prev => [message, ...prev])
+            // setPreviousMessages(prev => [message,...prev])
+
         }
         socket.current.onclose= () => {
             console.log('Socket закрыт')
+            setConnected(false)
+            const message = {
+                event: 'close',
+                username,
+                id: Date.now()
+            }
+            socket.current.send(JSON.stringify(message))
         }
         socket.current.onerror = () => {
             console.log('Socket произошла ошибка')
@@ -56,6 +68,12 @@ const WebSock = ({userName}) => {
             connect()
         }
     }
+
+// const showPreviousMessages = ()=> {
+//     messages ? messages?.filter(m => Array.isArray(m))[0]?.map(m=> m?
+//         <div> <span className={userName == username ? styles.activeUser : styles.otherUsers}>{m.username}</span>: {m.message}</div>
+//          : <>no messages</> ) :<>Loading</>
+// }
     if(!showChat){
         return (
             <button className={styles.showChatButton} onClick={showChatHandler}>Open  <BsFillChatRightTextFill/></button>
@@ -91,11 +109,29 @@ const WebSock = ({userName}) => {
                     <button onClick={() => setShowChat(!showChat)} className={styles.buttonClose}>X</button>
                 </div>
                 <div className={styles.messagesForm}>
+                    {messages.map(m=> {
+                        m.event === 'close' 
+                        ? <div>Пользователь {m.username} вышел</div>
+                        : <></>
+                    })}
                     {messages.map(mess =>
                         <div key={mess.id}>
                             {mess.event === 'connection'
                                 ? <div>
-                                     <span className={userName == username ? styles.activeUser : styles.otherUsers}>{mess.username}</span>: {mess.message}
+                                    <div className={styles.previosMessages}>Предыдущие сообщения</div>
+                                     {/* <span className={userName == username ? styles.activeUser : styles.otherUsers}>{mess.username}</span>: {mess.message} */}
+                                        {showPreviousMessages ? messages.filter(m => Array.isArray(m))[0]?.sort(function(a, b) {
+                                            if(a.id < b.id){
+                                                return 1
+                                            }
+                                            if(a.id > b.id){
+                                                return - 1
+                                            }
+                                            return 0
+                                            }).map(m=> m?
+                                      <div> <span className={userName == username ? styles.activeUser : styles.otherUsers}>{m.username}</span>: {m.message}</div>
+                                       : <>no messages</> ) :<>no messages</>}
+                                    <button className={styles.loadPrevious} onClick={() => setShowPreviousMessages(!showPreviousMessages)}>Загрузить предыдущие сообщения</button>
                                      <div className="connection_message">
                                     Пользователь {mess.username} подключился
                                    
