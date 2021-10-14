@@ -15,7 +15,7 @@ const WebSock = ({userName}) => {
     console.log('messages in websocket',messages)
     // console.log('previousMessages',previousMessages)
     function connect() {
-        socket.current = new WebSocket('ws://localhost:3001')
+        socket.current = new WebSocket('ws://localhost:3001/echo')
 
         socket.current.onopen = () => {
             setConnected(true)
@@ -25,9 +25,12 @@ const WebSock = ({userName}) => {
                 id: Date.now()
             }
             socket.current.send(JSON.stringify(message))
+            // socket.current.send(message)
         }
         socket.current.onmessage = (event) => {
             const message = JSON.parse(event.data)
+            // const message = event.data
+            console.log('event.data',event.data)
             setMessages(prev => [message, ...prev])
             // setPreviousMessages(prev => [message,...prev])
 
@@ -41,6 +44,7 @@ const WebSock = ({userName}) => {
                 id: Date.now()
             }
             socket.current.send(JSON.stringify(message))
+            // socket.current.send(message)
         }
         socket.current.onerror = () => {
             console.log('Socket произошла ошибка')
@@ -59,6 +63,7 @@ const WebSock = ({userName}) => {
             event: 'message'
         }
         socket.current.send(JSON.stringify(message));
+        // socket.current.send(message);
         setValue('')
     }
 
