@@ -11,7 +11,9 @@ const WebSock = ({userName}) => {
     const [connected, setConnected] = useState(false);
     const [username, setUsername] = useState(userName)
     const [showChat,setShowChat] = useState(false)
+    const [usersOnline,setUsersOnline] = useState(false)
     const [showPreviousMessages,setShowPreviousMessages] = useState(false)
+    const validateValueEmpty = !value
     console.log('messages in websocket',messages)
     // console.log('previousMessages',previousMessages)
     function connect() {
@@ -32,6 +34,11 @@ const WebSock = ({userName}) => {
             // const message = event.data
             console.log('event.data',event.data)
             setMessages(prev => [message, ...prev])
+            if(message.event == 'connection'){
+                setUsersOnline(!usersOnline)            
+            }
+            console.log(`"message.event == 'connection'"`,message.event == 'connection')
+            console.log('usersOnline',usersOnline)
             // setPreviousMessages(prev => [message,...prev])
 
         }
@@ -110,7 +117,7 @@ const WebSock = ({userName}) => {
             <div>
                 <div className={styles.chatHeader}>
                     <input className={styles.inputText} value={value} onChange={e => setValue(e.target.value)} type="text"/>
-                    <button onClick={sendMessage} className={styles.buttonSend}>Отправить</button>
+                    <button onClick={sendMessage} className={styles.buttonSend} disabled={validateValueEmpty}>Отправить</button>
                     <button onClick={() => setShowChat(!showChat)} className={styles.buttonClose}>X</button>
                 </div>
                 <div className={styles.messagesForm}>
