@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
 import styles from '../styles/websocket.module.css'
 import {BsFillChatRightTextFill} from 'react-icons/bs'
+import UsersOnline from './usersOnline';
 
 const WebSock = ({userName}) => {
     const [messages, setMessages] = useState([]);
@@ -11,11 +12,15 @@ const WebSock = ({userName}) => {
     const [connected, setConnected] = useState(false);
     const [username, setUsername] = useState(userName)
     const [showChat,setShowChat] = useState(false)
-    const [usersOnline,setUsersOnline] = useState(false)
+    const [usersOnline,setUsersOnline] = useState([])
     const [showPreviousMessages,setShowPreviousMessages] = useState(false)
     const validateValueEmpty = !value
     console.log('messages in websocket',messages)
-    // console.log('previousMessages',previousMessages)
+    // // console.log('previousMessages',previousMessages)
+    // const setUsersOnlineHandler = () => {
+    //     setUsersOnline(!usersOnline)
+    // }
+    console.log('usersOnline',usersOnline)
     function connect() {
         socket.current = new WebSocket('ws://localhost:3001/echo')
 
@@ -35,10 +40,11 @@ const WebSock = ({userName}) => {
             console.log('event.data',event.data)
             setMessages(prev => [message, ...prev])
             if(message.event == 'connection'){
-                setUsersOnline(!usersOnline)            
+                setUsersOnline(prev => [message.username, ...prev])     
+                // setUsersOnlineHandler()     
             }
             console.log(`"message.event == 'connection'"`,message.event == 'connection')
-            console.log('usersOnline',usersOnline)
+           
             // setPreviousMessages(prev => [message,...prev])
 
         }
@@ -115,6 +121,7 @@ const WebSock = ({userName}) => {
         <div className={styles.chatForm}>
         <div className="center">
             <div>
+                <UsersOnline usersOnline={usersOnline}/>
                 <div className={styles.chatHeader}>
                     <input className={styles.inputText} value={value} onChange={e => setValue(e.target.value)} type="text"/>
                     <button onClick={sendMessage} className={styles.buttonSend} disabled={validateValueEmpty}>Отправить</button>

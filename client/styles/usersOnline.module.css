@@ -1,0 +1,8 @@
+.textColor_white{
+    color: #fff;
+}
+.userOnline{
+    text-align: center;
+    border-radius: 20px;
+    background-color: rgb(9, 255, 0);
+}
