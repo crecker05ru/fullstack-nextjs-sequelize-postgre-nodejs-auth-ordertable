@@ -4,7 +4,11 @@ import styles from '../styles/websocket.module.css'
 import {BsFillChatRightTextFill} from 'react-icons/bs'
 import UsersOnline from './usersOnline';
 
+
 const WebSock = ({userName}) => {
+    
+    const BASE_URL = process.env.NEXT_PUBLIC_WEBSOCKET
+    console.log('BASE_URL',BASE_URL)
     const [messages, setMessages] = useState([]);
     // const [previousMessages,setPreviousMessages] = useState([])
     const [value, setValue] = useState('');
@@ -22,7 +26,7 @@ const WebSock = ({userName}) => {
     // }
     console.log('usersOnline',usersOnline)
     function connect() {
-        socket.current = new WebSocket('ws://localhost:3001/echo')
+        socket.current = new WebSocket(BASE_URL)
 
         socket.current.onopen = () => {
             setConnected(true)

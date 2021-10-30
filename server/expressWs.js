@@ -7,7 +7,7 @@ const errorHandler = require("./middleware/ErrorHandlingMiddleware")
 const path = require("path")
 const fs = require('fs')
 const websocketController = require('./websocket/websocketController')
-
+const expressWsModule = require('./websocket/expressWsModule')
 var express = require('express');
 var expressWs = require('express-ws');
 const { send } = require('process')
@@ -22,6 +22,7 @@ const PORT = process.env.PORT
 app.use(cors({
   origin: '*'
 }))
+// app.use(cors())
 app.use(express.json())
 app.use(fileUpload({}))
 app.use(express.static(path.resolve(__dirname, "static")))
@@ -83,9 +84,9 @@ let currentClient
 // })
 
 
-app.ws('/echo',(ws,req) => {
-    websocketController(ws,req)
-})
+app.ws('',websocketController(app))
+// expressWsModule(app)
+
 
 
 // app.listen(PORT);
@@ -110,9 +111,9 @@ const start = async () => {
     try {
         await sequelize.authenticate()
         await sequelize.sync()
-        // app.listen(PORT,() => console.log(`Server started on port ${PORT}`) )
+        app.listen(PORT,() => console.log(`Server started on port ${PORT}`) )
         // server.listen(PORT)
-        app.listen(PORT);
+        // app.listen(PORT);
     } catch (e){
         console.log(e)
     }

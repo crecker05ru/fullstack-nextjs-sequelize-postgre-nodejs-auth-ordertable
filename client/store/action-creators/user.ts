@@ -5,11 +5,12 @@ import {$authHost, $host} from "../../http/index";
 import jwt_decode from "jwt-decode";
 import { responsePathAsArray } from 'graphql';
 
+const BASE_URL = process.env.NEXT_PUBLIC_ENV_VARIABLE
 export const fetchUser = () => {
     return async (dispatch: Dispatch<UserAction>) => {
         try{
             dispatch({type: UserActionTypes.FETCH_USER})
-            const response = await axios.get("http://localhost:3001/api/userprofile")
+            const response = await axios.get(BASE_URL+"api/userprofile")
             dispatch({type: UserActionTypes.FETCH_USER_SUCCESS,payload: response.data})
         }catch(e){
             dispatch({type: UserActionTypes.FETCH_USER_ERROR,payload: "Error"})
@@ -62,7 +63,7 @@ export const loginUser = (email,password) => {
 export const logoutUser = () => {
     return async (dispatch) => {
         try{
-            const response = await axios.post("http://localhost:3001/api/user/logout")
+            const response = await axios.post(BASE_URL+"api/user/logout")
             let isAuth = !!response.data.token
             localStorage.removeItem('token')
             dispatch({type: UserActionTypes.LOGOUT, payload: isAuth})
@@ -74,7 +75,7 @@ export const logoutUser = () => {
 
 export const forgetPasswordRequest = (email) => async (dispatch) =>  {
     try{
-        const response = await axios.post("http://localhost:3001/api/user/forgot-password",{email})
+        const response = await axios.post(BASE_URL+"api/user/forgot-password",{email})
         console.log(response,'response in forget-password')
         return response.data.message
     }catch(e){
@@ -84,7 +85,7 @@ export const forgetPasswordRequest = (email) => async (dispatch) =>  {
 
 export const resetPasswordRequest = (id,password) => async (dispatch) => {
     try{
-        const response = await axios.post("http://localhost:3001/api/user/reset-password",{id,password})
+        const response = await axios.post(BASE_URL+"api/user/reset-password",{id,password})
         console.log(response,'response in reset-password')
         return response.data.message
     }catch(e){

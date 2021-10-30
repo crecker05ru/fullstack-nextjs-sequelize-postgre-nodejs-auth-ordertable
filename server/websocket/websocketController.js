@@ -1,3 +1,10 @@
+// var express = require('express');
+// var expressWs = require('express-ws');
+// var expressWs = expressWs(express());
+// var app = expressWs.app;
+
+const fs = require('fs')
+
 // const ws = require('ws')
 // const PORT = 3002
 // const wss = new ws.Server({
@@ -49,14 +56,26 @@
 
 
 
-module.exports = function websocketController(ws,res){
+module.exports = function websocketController(app){
+  
 
-let history = []
-let clients = []
-let currentClient
+  
+  fs.writeFile("websocket/webSocket_messages.txt", "Здесь сообщения", function(error){
+ 
+    if(error) throw error; // если возникла ошибка
+    console.log("Асинхронная запись файла завершена. Содержимое файла:");
+    let data = fs.readFileSync("websocket/webSocket_messages.txt", "utf8");
+    console.log(data);  // выводим считанные данные
+});
+
+  console.log('ws module')
+  let history = []
+  let clients = []
+  let currentClient
 
 app.ws('/echo', (ws, req) =>{
-  
+  var aWss = app.getWss('/echo')
+
   console.log('Socket Connected');
   // ws.send(history)
   ws.send(JSON.stringify(history))
@@ -104,5 +123,8 @@ ws.on('close', () => {
 })
 
 })
+
+  
+
 
 }
