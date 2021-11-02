@@ -41,8 +41,8 @@ export default function MainContainer () {
         <h2>3. Deploy</h2>
         <h2>4. Лендинг-визитка</h2>
         <h2>5. Добавить почту X</h2>
-        <h2>6. Разобраться с WebSocket в отдельном модуле</h2>
-        <h2>7. Добавить fs для WebSocket</h2>
+        <h2>6. Разобраться с WebSocket в отдельном модуле (проблема с `let aWss = expressWs.getWss('/echo');`)</h2>
+        <h2>7. Добавить fs для WebSocket </h2>
 
         {/* <SocketIo/> */}
         {/* <Auth/> */}

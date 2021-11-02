@@ -8,15 +8,21 @@ const path = require("path")
 const fs = require('fs')
 const websocketController = require('./websocket/websocketController')
 const expressWsModule = require('./websocket/expressWsModule')
+const wsRouter = './routes/wsRouter'
 var express = require('express');
-var expressWs = require('express-ws');
+// console.log({express})
+// var expressWs = require('express-ws');
 const { send } = require('process')
-var expressWs = expressWs(express());
-var app = expressWs.app;
+const app = express()
+
+// var expressWs = expressWs(express());
+// var app = expressWs.app;
+var expressWs = require('express-ws')(app);
 
 app.use(express.static('public'));
 
-var aWss = expressWs.getWss('/');
+
+
 const PORT = process.env.PORT
 
 app.use(cors({
@@ -27,65 +33,76 @@ app.use(express.json())
 app.use(fileUpload({}))
 app.use(express.static(path.resolve(__dirname, "static")))
 app.use('/api',router)
+// app.use('/',wsRouter)
 app.use(errorHandler)
 
 let history = []
 let clients = []
 let currentClient
 
-// app.ws('/echo', (ws, req) =>{
-  
-//   console.log('Socket Connected');
-//   // ws.send(history)
-//   ws.send(JSON.stringify(history))
-//   // currentClient = aWss.clients
-//   // clients.push(currentClient)
-//   console.log('history',history)
-  
-
-
-//   //   function broadcastMessage(message) {
-//   //     aWss.clients.forEach(client => {
-//   //         client.send(JSON.stringify(message))
-//   //     })
-//   // }
-//   ws.on('message', msg => {
-//     // ws.send(msg)
-//     msg = JSON.parse(msg)
-//     currentClient =  msg.username.slice()
-    
-//     if(msg.event === 'message'){
-//       history.push(msg)
-//       history.slice(-100)
-//     }
-//     if(msg.event === 'connection'){
-//       clients.push(currentClient)
-//     }
-//     console.log('clients',clients)
-    
-//     aWss.clients.forEach(client => {
-//       // client.send(msg)
-//       client.send(JSON.stringify(msg))
-//       console.log('msg',msg)
-//   })
-    
-// })
-
-
-
-// ws.on('close', () => {
-//     console.log('WebSocket was closed')
-//     console.log('currentClient',currentClient)
-//     console.log('clients after filter',clients)
-//     clients.splice(clients.indexOf(currentClient),1)
-//     currentClient = undefined
-// })
-
-// })
-
-
-app.ws('',websocketController(app))
 // expressWsModule(app)
+// console.log('expressWs',expressWs)
+// console.log('express',express)
+// console.log('express()',express())
+// console.log({expressWs})
+
+let aWss = expressWs.getWss('/echo');
+console.log('in main',{aWss})
+
+// websocketController.socketExpressWS(app,aWss)
+// console.log('websocketController.socketExpressWS(app,aWss)',websocketController.socketExpressWS(app,aWss))
+
+app.ws('/echo', (ws, req) =>{
+  
+  console.log('Socket Connected');
+  // ws.send(history)
+  ws.send(JSON.stringify(history))
+  // currentClient = aWss.clients
+  // clients.push(currentClient)
+  console.log('history',history)
+  
+
+
+  //   function broadcastMessage(message) {
+  //     aWss.clients.forEach(client => {
+  //         client.send(JSON.stringify(message))
+  //     })
+  // }
+  ws.on('message', msg => {
+    // ws.send(msg)
+    msg = JSON.parse(msg)
+    currentClient =  msg.username.slice()
+    
+    if(msg.event === 'message'){
+      history.push(msg)
+      history.slice(-100)
+    }
+    if(msg.event === 'connection'){
+      clients.push(currentClient)
+    }
+    console.log('clients',clients)
+    
+    aWss.clients.forEach(client => {
+      // client.send(msg)
+      client.send(JSON.stringify(msg))
+      console.log('msg',msg)
+  })
+    
+})
+
+
+
+ws.on('close', () => {
+    console.log('WebSocket was closed')
+    console.log('currentClient',currentClient)
+    console.log('clients after filter',clients)
+    clients.splice(clients.indexOf(currentClient),1)
+    currentClient = undefined
+})
+
+})
+
+
 
 
 

@@ -4,6 +4,7 @@
 // var app = expressWs.app;
 
 const fs = require('fs')
+// var expressWs = require('express-ws')
 
 // const ws = require('ws')
 // const PORT = 3002
@@ -56,8 +57,11 @@ const fs = require('fs')
 
 
 
-module.exports = function websocketController(app){
-  
+exports.listen = (app) => {
+  expressWs(app);
+// var expressWs = expressWs(express());
+// console.log({expressWs})
+// console.log({app})
 
   
   fs.writeFile("websocket/webSocket_messages.txt", "Здесь сообщения", function(error){
@@ -76,6 +80,81 @@ module.exports = function websocketController(app){
 app.ws('/echo', (ws, req) =>{
   var aWss = app.getWss('/echo')
 
+  console.log('Socket Connected');
+  // ws.send(history)
+  ws.send(JSON.stringify(history))
+  currentClient = aWss.clients
+  clients.push(currentClient)
+  console.log('history',history)
+  
+
+
+    function broadcastMessage(message) {
+      aWss.clients.forEach(client => {
+          client.send(JSON.stringify(message))
+      })
+  }
+  ws.on('message', msg => {
+    // ws.send(msg)
+    msg = JSON.parse(msg)
+    currentClient =  msg.username.slice()
+    
+    if(msg.event === 'message'){
+      history.push(msg)
+      history.slice(-100)
+    }
+    if(msg.event === 'connection'){
+      clients.push(currentClient)
+    }
+    console.log('clients',clients)
+    
+    aWss.clients.forEach(client => {
+      // client.send(msg)
+      client.send(JSON.stringify(msg))
+      console.log('msg',msg)
+  })
+    
+})
+
+
+
+ws.on('close', () => {
+    console.log('WebSocket was closed')
+    console.log('currentClient',currentClient)
+    console.log('clients after filter',clients)
+    clients.splice(clients.indexOf(currentClient),1)
+    currentClient = undefined
+})
+
+})
+
+  
+
+
+}
+
+exports.socketWS = (app)=> {
+  expressWs(app)
+  console.log("socket")
+  app.ws('/echo', function(ws, req) {
+    ws.on('message', function(msg) {
+      ws.send(msg);
+    });
+  });
+}
+
+exports.socketExpressWS = (app,aWss) => {
+  var expressWs = require('express-ws')(app)
+
+  console.log({expressWs})
+  console.log({app})
+
+  // var aWss = expressWs.getWss('/echo');
+  console.log('in module',{aWss})
+  console.log("socket")
+
+  app.ws('/echo', (ws, req) =>{
+  
   console.log('Socket Connected');
   // ws.send(history)
   ws.send(JSON.stringify(history))
@@ -123,8 +202,5 @@ ws.on('close', () => {
 })
 
 })
-
-  
-
 
 }
