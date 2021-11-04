@@ -10,7 +10,7 @@ export const fetchUser = () => {
     return async (dispatch: Dispatch<UserAction>) => {
         try{
             dispatch({type: UserActionTypes.FETCH_USER})
-            const response = await axios.get(BASE_URL+"api/userprofile")
+            const response = await $authHost.get(BASE_URL+"api/user/userdata")
             dispatch({type: UserActionTypes.FETCH_USER_SUCCESS,payload: response.data})
         }catch(e){
             dispatch({type: UserActionTypes.FETCH_USER_ERROR,payload: "Error"})

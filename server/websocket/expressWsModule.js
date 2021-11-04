@@ -11,7 +11,7 @@ let clients = []
 let currentClient
 
 let aWss = expressWs.getWss('/echo');
-console.log('in main',{aWss})
+// console.log('in main',{aWss})
 
 app.ws('/echo', (ws, req) =>{
   

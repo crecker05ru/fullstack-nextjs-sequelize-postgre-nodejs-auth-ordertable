@@ -3,10 +3,14 @@ import axios from "axios";
 import styles from '../styles/websocket.module.css'
 import {BsFillChatRightTextFill} from 'react-icons/bs'
 import UsersOnline from './usersOnline';
+import { useContext } from 'react';
+
+
+
 
 
 const WebSock = ({userName}) => {
-    
+    console.log('userName in Websocket',userName)
     const BASE_URL = process.env.NEXT_PUBLIC_WEBSOCKET
     console.log('BASE_URL',BASE_URL)
     const [messages, setMessages] = useState([]);

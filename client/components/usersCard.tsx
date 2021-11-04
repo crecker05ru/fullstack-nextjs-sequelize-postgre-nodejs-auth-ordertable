@@ -11,22 +11,33 @@ import { Button } from 'react-bootstrap';
 
 const UsersCard: React.FC = () => {
     const router = useRouter()
+    const {isAuth,user} = useTypedSelector(state => state.user)
     const {error,loading,users} = useTypedSelector(state => state.users)
     const {orderList} = useTypedSelector(state => state.orderList)
     const {order} = useTypedSelector(state => state.order)
     const [editCurrency,setEditCurrency] = useState(86)
     const [editOrderLimit,setEditOrderLimit] = useState(200)
     const [editOrderShippingCost,setEditOrderShippingCost] = useState(20)
-    const {isAuth,user} = useTypedSelector(state => state.user)
+   
     const {authData} = useTypedSelector(state => state.authData)
-    const {fetchUsers,fetchOrderList,fetchOrder,fetchCurrency,logoutUser} = useActions()
+    const {fetchUsers,fetchOrderList,fetchOrder,fetchCurrency,logoutUser,fetchUser} = useActions()
     console.log('users',users)
     console.log('orderList in userCard',orderList)
     console.log("order in userCard",order)
 
     useEffect(() => {
+
+            fetchUser()
+
+        
+    },[])
+    
+    useEffect(() => {
         fetchUsers()
     },[])
+
+
+
 
     useEffect(()=> {
         fetchOrderList()

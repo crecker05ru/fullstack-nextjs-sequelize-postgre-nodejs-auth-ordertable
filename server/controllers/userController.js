@@ -100,6 +100,53 @@ class UserController {
         const token = generateJwt(req.user.id, req.user.email,req.user.role)
         return res.json({token})
     }
+    async getData(req, res, next){
+        try {
+            const token = req.headers.authorization.split(' ')[1] // Bearer asfasnfkajsfnjk
+            if (!token) {
+                return res.status(401).json({message: "Не авторизован токен"})
+            }
+
+            const decoded = jwt.verify(token, process.env.SECRET_KEY) // error when decoded
+            const {id}= decoded
+                const user = await User.findOne({
+                    where:{id},
+                    attributes:["id","email"],
+                    include: [
+                        {
+                        model: UserProfile,
+                        as: "userProfile"
+                    },
+                    {
+                        model: OrderList,
+                        as: "orderList"
+                    },
+                ]
+                })
+                return res.json(user)
+        } catch (e) {
+            res.status(401).json({message: "Не авторизован ошибкой"})
+        }
+        // const token = req.headers.authorization.split(' ')[1]
+        // const decoded = jwt.verify(token, process.env.SECRET_KEY) // error when decoded
+        // const {id}= decoded
+        //     const user = await User.findOne({
+        //         where:{id},
+        //         attributes:["id","email"],
+        //         include: [
+        //             {
+        //             model: UserProfile,
+        //             as: "userProfile"
+        //         },
+        //         {
+        //             model: OrderList,
+        //             as: "orderList"
+        //         },
+        //     ]
+        //     })
+        //     return res.json(user)
+        
+    }
     async findById(req, res){
         const {id} = req.params
         const user = await User.findOne({
