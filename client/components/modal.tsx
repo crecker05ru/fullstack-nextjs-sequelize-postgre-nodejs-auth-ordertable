@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
+import type {} from 'styled-components/cssprop';
+
+
 
 const Modal = ({ show, onClose, children, title }) => {
     const [isBrowser, setIsBrowser] = useState(false);
@@ -67,4 +70,7 @@ const Modal = ({ show, onClose, children, title }) => {
     background-color: rgba(0, 0, 0, 0.5);
   `;
   
+  const StyledModalTitle = styled.div`
+  padding-top: 10px;
+`;
   export default Modal;

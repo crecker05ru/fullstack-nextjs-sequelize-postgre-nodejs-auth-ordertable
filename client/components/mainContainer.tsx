@@ -6,7 +6,6 @@ import { useActions } from './hooks/useActions';
 import Auth from "../pages/auth"
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Spinner from 'react-bootstrap/Spinner'
 
 
 export default function MainContainer () {
@@ -52,7 +51,7 @@ export default function MainContainer () {
         :<><UsersCard/></>} */}
         {/* <UsersCard/> */}
         {loading 
-        ? <> <Spinner/>
+        ? <> 
         </>
         : <>
                 {isAuth

@@ -1,7 +1,7 @@
-
+import {UserProfileDataTypeInterface,UserInterface} from './types'
 
 export interface UserState {
-    user: any[];
+    user: UserInterface;
     loading: boolean;
     error: null | string;
     isAuth: boolean;
@@ -20,7 +20,7 @@ interface FetchUserAction {
 }
 interface FetchUserSuccessAction {
     type: UserActionTypes.FETCH_USER_SUCCESS;
-    payload: any[]
+    payload: UserInterface
 }
 interface FetchUserErrorAction {
     type: UserActionTypes.FETCH_USER_ERROR;

@@ -1,7 +1,12 @@
 import {AuthActionTypes,AuthDataState,AuthAction} from "../../types/auth"
+import {authDataType} from './../../types/types'
+import { TypedUseSelectorHook } from 'react-redux';
+
+
+
 
 const initialState: AuthDataState = {
-    authData: [],
+    authData: {},
     loading: false,
     error: null,
     isAuth: false
@@ -10,11 +15,11 @@ const initialState: AuthDataState = {
 export const AuthDataReducer = (state = initialState,action: AuthAction) => {
     switch(action.type){
         case AuthActionTypes.FETCH_AUTHDATA:
-            return {...state,loading: true,error: null,authData: []}
+            return {...state,loading: true,error: null,authData: {}}
         case AuthActionTypes.FETCH_AUTHDATA_SUCCESS:
             return {...state,loading: false,error: null, authData: action.payload,isAuth: true }
         case AuthActionTypes.FETCH_AUTHDATA_ERROR:
-            return {...state,loading: false,error: action.payload, authData:[],isAuth: false}
+            return {...state,loading: false,error: action.payload, authData:{},isAuth: false}
         default:
             return state
     }

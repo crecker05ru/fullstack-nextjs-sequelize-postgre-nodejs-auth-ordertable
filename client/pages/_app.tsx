@@ -6,10 +6,8 @@ import { store } from "../store/";
 import '../styles/globals.css';
 import { FooterBar } from '../components/footerBar';
 
-import Home from "../chat/Home";
 
 import { useRouter } from 'next/router'
-import Username from './chat/[roomname]/[username]'
 
 
 
