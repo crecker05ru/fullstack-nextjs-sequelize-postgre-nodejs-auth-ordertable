@@ -1,5 +1,8 @@
+import { authDataType,AuthDataTypeInterface } from "./types"
+
+
 export interface AuthDataState {
-    authData: any[];
+    authData: AuthDataTypeInterface;
     loading: boolean;
     error: null | string;
     isAuth: boolean;
@@ -17,7 +20,7 @@ interface FetchAuthDataAction {
 
 interface FetchAuthDataSuccess {
     type: AuthActionTypes.FETCH_AUTHDATA_SUCCESS
-    payload: any[]
+    payload: AuthDataTypeInterface
 }
 interface FetchAuthDataError{
     type: AuthActionTypes.FETCH_AUTHDATA_ERROR

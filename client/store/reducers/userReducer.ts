@@ -3,7 +3,7 @@ import LogIn from './../../components/logIn';
 
 
 const initialState: UserState = {
-    user: [],
+    user: {},
     loading: true,
     error: null,
     isAuth: false
@@ -16,7 +16,7 @@ export const userReducer = (state = initialState, action:UserAction): UserState 
         case UserActionTypes.FETCH_USER_SUCCESS:
             return {...state,loading: false,user:action.payload}
         case UserActionTypes.FETCH_USER_ERROR:
-            return {...state,loading: false,error: action.payload,user: []}
+            return {...state,loading: false,error: action.payload,user: {}}
         case UserActionTypes.REGISTER:
             return {...state,loading:false,isAuth: true}
         case UserActionTypes.LOGIN:

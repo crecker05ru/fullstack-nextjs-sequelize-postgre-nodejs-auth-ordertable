@@ -33,7 +33,7 @@ export default function OrderList ({id,orderList,order,currency,editOrderLimit,e
     Number(shipping).toFixed(2)
     totalWithShipping = (editTotal + shipping).toFixed(2)
     difference =  editPayedTotal - totalInRub
-    totalInRub = (editTotal * currency).toFixed(2)
+    totalInRub = editTotal.toFixed(2) * currency.toFixed(2)
     
 
     console.log('orderList',orderList)

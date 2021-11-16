@@ -3,16 +3,21 @@ import { useActions } from './hooks/useActions';
 import { useTypedSelector } from './hooks/useTypedSelector';
 import { useRouter } from 'next/router'
 
+// interface authType {
+//     id?: number,
+//     email?: string,
+//     role?: string
+// }
 export default function AddOrder () {
     const router = useRouter()
     const [position,setPosition] = useState(1)
     const [name, setName] = useState('')
     const [link,setLink] = useState('')
     const [option,setOption] = useState('')
-    const [price, setPrice] = useState()
+    const [price, setPrice] = useState(0)
     const [count, setCount] = useState(1)
     let [total,setTotal] = useState(0)
-    const {authData} = useTypedSelector(state => state.authData)
+    const {authData}  = useTypedSelector(state => state.authData)
     console.log('authData',authData)
     
     const {addOrder} = useActions()
@@ -39,8 +44,8 @@ export default function AddOrder () {
                 <input className="border-2 border-radius-5px " aria-describedby="name" placeholder="Название" value={name} onChange={e => setName(e.target.value)}></input>
                 <input className="border-2 border-radius-5px" placeholder="Опция" value={option} onChange={e => setOption(e.target.value)}></input>
                 <input className="border-2 border-radius-5px" placeholder="Ссылка" value={link} onChange={ e => setLink(e.target.value)}></input>
-                <input className="border-2 border-radius-5px" placeholder="Цена в &#8364;" type="number" value={price} onChange={e => setPrice(e.target.value)}></input>
-                <input className="border-2 border-radius-5px  " placeholder="Количество" type="number" value={count} onChange={e => setCount(e.target.value)}></input>
+                <input className="border-2 border-radius-5px" placeholder="Цена в &#8364;" type="number" value={price} onChange={e => setPrice(parseFloat(e.target.value))}></input>
+                <input className="border-2 border-radius-5px  " placeholder="Количество" type="number" value={count} onChange={e => setCount(parseFloat(e.target.value))}></input>
                 <label placeholder="Total"  className="">Итого &#8364;: { !price ? 0 : total=count*price} </label>
                 {/* <label>ИД {id}</label> */}
             </div>

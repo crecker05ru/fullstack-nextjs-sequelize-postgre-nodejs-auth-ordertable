@@ -12,8 +12,8 @@ const SocketIo = () => {
     const SERVER_URL = '/'
     const socketRef = useRef(null)
 
-    const socket = io.connect('/')    
-
+    const socket = io('/')    
+    
     function sendMessage(value) {
         if (value){
             socket.emit('chat message',value)

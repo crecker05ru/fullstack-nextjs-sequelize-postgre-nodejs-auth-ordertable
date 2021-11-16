@@ -31,9 +31,13 @@ app.use(express.static(path.resolve(__dirname, "static")))
 app.use('/api',router)
 app.use(errorHandler)
 
+if(process.env.NODE_ENV === 'production'){
+    app.use('/',express.static(path.join(__dirname,'client','build')))
 
-
-// const io = socket(server)
+    app.get('*',(req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 const start = async () => {
     try {
         await sequelize.authenticate()

@@ -1,21 +1,10 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import Order from '../components/orders'
+
 import styles from '../styles/Home.module.css'
-import OrderList from "../components/orderList"
-import UsersCard from '../components/usersCard'
-import RegistrationCard from '../components/registrationCard'
-import LogIn from '../components/logIn'
-import { Provider } from 'react-redux'
-// import {store} from "../store/"
-import io from "socket.io-client";
+
 import MainContainer from '../components/mainContainer'
 import { Container, Navbar } from 'react-bootstrap'
-import { NavigationBar } from './../components/NavigationBar';
-import { FooterBar } from '../components/footerBar'
-import Auth from './auth'
-import Chat from '../chat/chat'
-import HomePage from '../chat/Home'
+
 
 // const socket = io.connect('/');
 
