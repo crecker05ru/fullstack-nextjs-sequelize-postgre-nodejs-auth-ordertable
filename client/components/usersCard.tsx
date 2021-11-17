@@ -21,9 +21,9 @@ const UsersCard: React.FC = () => {
    
     const {authData} = useTypedSelector(state => state.authData)
     const {fetchUsers,fetchOrderList,fetchOrder,fetchCurrency,logoutUser,fetchUser} = useActions()
-    console.log('users',users)
-    console.log('orderList in userCard',orderList)
-    console.log("order in userCard",order)
+    // console.log('users',users)
+    // console.log('orderList in userCard',orderList)
+    // console.log("order in userCard",order)
 
     useEffect(() => {
 

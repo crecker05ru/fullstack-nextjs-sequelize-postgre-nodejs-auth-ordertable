@@ -12,7 +12,7 @@ export default function Orders ({listId,order,currency,editOrderLimit,currentUse
     const router = useRouter()
     const [edit,setEdit] = useState(false)
     const {deleteOrder,editOrder} = useActions()
-    console.log("order",order)
+    // console.log("order",order)
 
     const deleteOrd = (id) => {
         deleteOrder(id)

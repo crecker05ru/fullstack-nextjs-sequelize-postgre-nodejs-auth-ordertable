@@ -14,7 +14,7 @@ export default function MainContainer () {
     const {authData,isAuth,error,loading} = useTypedSelector(state => state.authData)
 
     useEffect(()=>{
-        console.log("window.innerHeight", window.innerHeight);
+        // console.log("window.innerHeight", window.innerHeight);
     },[])
 
     useEffect(()=> {

@@ -19,8 +19,8 @@ export default function EditOrder ({id,position,name,option,link,price,count,tot
         
         editOrder(id,position,name,link,option,price,count,total)
         clickHandler()
-        console.log(id,position,name,link,price,count,total)
-        console.log("order",order)
+        // console.log(id,position,name,link,price,count,total)
+        // console.log("order",order)
         // console.log(editOrder())
         
     }

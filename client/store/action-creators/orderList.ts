@@ -31,7 +31,7 @@ export const editOrderList = (id,total,shipping,totalWithShipping,payedTotal,dif
     try{
         const response = await axios.put(BASE_URL+"api/orderList/edit",{id,total,shipping,totalWithShipping,payedTotal,difference})
         dispatch(fetchOrderList())
-        console.log(response,'response in orderlist')
+        // console.log(response,'response in orderlist')
     }catch(e){
         console.log(e)
     }

@@ -3,7 +3,6 @@ import { Dispatch } from "redux";
 import {UserActionTypes,UserAction} from "../../types/user"
 import {$authHost, $host} from "../../http/index";
 import jwt_decode from "jwt-decode";
-import { responsePathAsArray } from 'graphql';
 
 const BASE_URL = process.env.NEXT_PUBLIC_ENV_VARIABLE
 export const fetchUser = () => {
@@ -31,7 +30,7 @@ export const registerUser = (email,name,password) => {
             const {data} = await $host.post('api/user/registration', {email,name ,password})
             localStorage.setItem('token', data.token)
             let isAuth = !!data.token
-            console.log("registration user action",data)
+            // console.log("registration user action",data)
             dispatch({type: UserActionTypes.REGISTER,payload: isAuth})
             dispatch(fetchUser())
             return jwt_decode(data.token)

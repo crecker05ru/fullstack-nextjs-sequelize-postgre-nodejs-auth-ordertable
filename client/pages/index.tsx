@@ -26,7 +26,7 @@ import { Container, Navbar } from 'react-bootstrap'
 // }
 
 export default function Home() {
-  console.log('NEXT_PUBLIC_ENV_VARIABLE',process.env.NEXT_PUBLIC_ENV_VARIABLE)
+  // console.log('NEXT_PUBLIC_ENV_VARIABLE',process.env.NEXT_PUBLIC_ENV_VARIABLE)
   return (
     <div className={styles.container}>
       

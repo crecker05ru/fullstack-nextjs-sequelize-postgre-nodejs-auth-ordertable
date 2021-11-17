@@ -53,7 +53,7 @@ export const editOrder = (id,position,name,option,link,price,count,total) => asy
         const response = await axios.put(BASE_URL+"api/order/edit",{id,position,name,option,link,price,count,total})
         // dispatch({type: OrderActionTypes.FETCH_ORDER_SUCCESS,payload: response.data})
         dispatch(fetchOrder())
-        console.log("fetch order")
+        // console.log("fetch order")
     }catch(e){
         console.log(e)
     }

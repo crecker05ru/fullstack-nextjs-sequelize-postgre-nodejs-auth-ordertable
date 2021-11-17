@@ -30,7 +30,7 @@ export default function LogIn () {
     const [loginPage,setLoginPage] = useState(true)
     const [forgetPasswordPage,setForgetPasswordPage] = useState(false)
 
-    console.log('isAuth,user',isAuth,user)
+    // console.log('isAuth,user',isAuth,user)
 
     useEffect(()=> {
         if(emailError || (passwordError && !forgetPasswordPage) ||(!loginPage&&nameError)){

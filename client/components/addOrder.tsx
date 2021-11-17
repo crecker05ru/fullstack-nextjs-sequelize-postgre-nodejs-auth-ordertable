@@ -18,12 +18,12 @@ export default function AddOrder () {
     const [count, setCount] = useState(1)
     let [total,setTotal] = useState(0)
     const {authData}  = useTypedSelector(state => state.authData)
-    console.log('authData',authData)
+    // console.log('authData',authData)
     
     const {addOrder} = useActions()
     let userId = authData.id
-    console.log("authData.id",authData.id)
-    console.log('userId in AddOrder',userId)
+    // console.log("authData.id",authData.id)
+    // console.log('userId in AddOrder',userId)
     // let currentUserId = authData.id
     // let currentOrderLists =  orderList.filter(o => o.userId == authData.id)
     // let currentOrderList = currentOrderLists[1]

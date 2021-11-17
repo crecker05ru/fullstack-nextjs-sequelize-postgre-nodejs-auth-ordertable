@@ -10,9 +10,9 @@ import { useContext } from 'react';
 
 
 const WebSock = ({userName}) => {
-    console.log('userName in Websocket',userName)
+    // console.log('userName in Websocket',userName)
     const BASE_URL = process.env.NEXT_PUBLIC_WEBSOCKET
-    console.log('BASE_URL',BASE_URL)
+    // console.log('BASE_URL',BASE_URL)
     const [messages, setMessages] = useState([]);
     // const [previousMessages,setPreviousMessages] = useState([])
     const [value, setValue] = useState('');
@@ -23,16 +23,16 @@ const WebSock = ({userName}) => {
     const [usersOnline,setUsersOnline] = useState([])
     const [showPreviousMessages,setShowPreviousMessages] = useState(false)
     const validateValueEmpty = !value
-    console.log('messages in websocket',messages)
+    // console.log('messages in websocket',messages)
     // // console.log('previousMessages',previousMessages)
     // const setUsersOnlineHandler = () => {
     //     setUsersOnline(!usersOnline)
     // }
-    console.log('usersOnline',usersOnline)
+    // console.log('usersOnline',usersOnline)
     function connect() {
-        console.log('socket.current before - WebSocket',socket.current)
+        // console.log('socket.current before - WebSocket',socket.current)
         socket.current = new WebSocket(BASE_URL)
-        console.log('socket.current after - WebSocket',socket.current)
+        // console.log('socket.current after - WebSocket',socket.current)
         socket.current.onopen = () => {
             setConnected(true)
             const message = {
@@ -46,19 +46,19 @@ const WebSock = ({userName}) => {
         socket.current.onmessage = (event) => {
             const message = JSON.parse(event.data)
             // const message = event.data
-            console.log('event.data',event.data)
+            // console.log('event.data',event.data)
             setMessages(prev => [message, ...prev])
             if(message.event == 'connection'){
                 setUsersOnline(prev => [message.username, ...prev])     
                 // setUsersOnlineHandler()     
             }
-            console.log(`"message.event == 'connection'"`,message.event == 'connection')
+            // console.log(`"message.event == 'connection'"`,message.event == 'connection')
            
             // setPreviousMessages(prev => [message,...prev])
 
         }
         socket.current.onclose= () => {
-            console.log('Socket закрыт')
+            // console.log('Socket закрыт')
             setConnected(false)
             const message = {
                 event: 'close',
@@ -69,7 +69,7 @@ const WebSock = ({userName}) => {
             // socket.current.send(message)
         }
         socket.current.onerror = () => {
-            console.log('Socket произошла ошибка')
+            // console.log('Socket произошла ошибка')
         }
 
     }

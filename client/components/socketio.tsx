@@ -19,8 +19,8 @@ const SocketIo = () => {
             socket.emit('chat message',value)
             
         }
-        console.log('value',value)
-        console.log('messages',messages)
+        // console.log('value',value)
+        // console.log('messages',messages)
         setValue('')
     }
     socket.on('chat message',(value)=>{

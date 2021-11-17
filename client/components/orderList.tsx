@@ -36,13 +36,13 @@ export default function OrderList ({id,orderList,order,currency,editOrderLimit,e
     totalInRub = editTotal.toFixed(2) * currency.toFixed(2)
     
 
-    console.log('orderList',orderList)
+    // console.log('orderList',orderList)
     // console.log('orders',orders)
-    console.log('orderList.idt',list.id)
-    console.log('orderList[0]',orderList[0])
-    console.log("list",list)
-    console.log("order in orderList",order)
-    console.log('listId,editTotal,editPayedTotal',listId,editTotal,editPayedTotal)
+    // console.log('orderList.idt',list.id)
+    // console.log('orderList[0]',orderList[0])
+    // console.log("list",list)
+    // console.log("order in orderList",order)
+    // console.log('listId,editTotal,editPayedTotal',listId,editTotal,editPayedTotal)
     // id,total,shipping,totalWithShipping,payedTotal,difference
     const handlTotalPayed = () => {
         setEditPayed(!editPayed)
