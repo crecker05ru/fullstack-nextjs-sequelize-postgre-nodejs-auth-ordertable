@@ -40,3 +40,7 @@ margin: 10px 0px 10px 100px;
 span:hover{
   cursor: pointer;
 }
+.app-image{
+  height: 200px;
+  width: 300px;
+}

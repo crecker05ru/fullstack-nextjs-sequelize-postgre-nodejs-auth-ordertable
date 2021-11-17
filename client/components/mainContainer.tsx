@@ -6,6 +6,8 @@ import { useActions } from './hooks/useActions';
 import Auth from "../pages/auth"
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import app_screen from '../public/app_screen.png'
+import Image from 'next/image'
 
 
 export default function MainContainer () {
@@ -35,14 +37,8 @@ export default function MainContainer () {
     // }
     return (
         <>
-        <h2>1. Решить проблему с auth при входе на страницу X</h2>
-        <h2>2. Адаптив: оверлэй на инпуты X</h2>
-        <h2>3. Deploy</h2>
-        <h2>4. Лендинг-визитка</h2>
-        <h2>5. Добавить почту X</h2>
-        <h2>6. Разобраться с WebSocket в отдельном модуле (проблема с `let aWss = expressWs.getWss('/echo');`)</h2>
-        <h2>7. Добавить fs для WebSocket </h2>
-
+        <h2>Таблица заказов</h2>
+        
         {/* <SocketIo/> */}
         {/* <Auth/> */}
 
@@ -61,6 +57,7 @@ export default function MainContainer () {
 
                     </div>
                 : <div><h3>Войдите в учетную запись чтобы добавлять и просматривать заказы</h3> 
+                    <div className="d-flex justify-content-center"><Image src={app_screen} alt="app screen" width={500} height={300}/></div>
                     {/* <Auth/> */}
                     <button className="btn btn-info" onClick={() => router.push('/auth')}>Авторизоваться</button>
                 </div>}
