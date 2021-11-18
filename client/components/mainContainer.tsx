@@ -57,7 +57,7 @@ export default function MainContainer () {
 
                     </div>
                 : <div><h3>Войдите в учетную запись чтобы добавлять и просматривать заказы</h3> 
-                    <div className="d-flex justify-content-center"><Image src={app_screen} alt="app screen" width={500} height={300}/></div>
+                    <div className="d-flex justify-content-center"><Image src={"/app_screen.png"} alt="app screen" width={500} height={300}/></div>
                     {/* <Auth/> */}
                     <button className="btn btn-info" onClick={() => router.push('/auth')}>Авторизоваться</button>
                 </div>}
